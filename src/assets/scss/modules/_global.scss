@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+body{
+    direction: rtl;
+    text-align: right;
+    color: #919191 !important;
+    font-size: 14px;
+    background-color: #f5f5f5 !important;
+    font-family: 'Cairo', sans-serif !important;
+}
+
+a{transition: all 0.2s linear 0s;}
+
+input:focus{
+    box-shadow: none !important;
+}
+
+ul{
+    padding: 0 !important;
+    margin: 0;
+}
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.list{
+    list-style: none;
+}
+.flex_center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.flex_between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.flex_column{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.absolute{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: -1;
+}
+.main-background{
+    background-color: $main-color;
+}
+a{
+    color: inherit !important;
+    text-decoration: none !important;
+}
+.blackColor{
+    color: #333;
+}
+.whiteColor{
+    color:#fff;
+}
+
+#content{
+    width: calc(100% - 300px);
+    margin-right: 300px;
+    // margin-top: 100px;
+    transition: .3s all;
+    &.active{
+        width: calc(100% - 80px);
+        margin-right: 80px;
+    }
+}
+
+.fw-6{
+    font-weight: 600;
+}
+.borderBottom{
+    border-bottom: 1px solid #b0b0b035;
+}
+.p-datatable .p-sortable-column .p-column-title, .p-datatable .p-sortable-column .p-sortable-column-icon, .p-datatable .p-sortable-column .p-sortable-column-badge{
+    font-size: 11px;
+}
+
+
+
+
+ /*============================ end loader================================== */
+ ::-webkit-scrollbar,
+ body::-webkit-scrollbar,
+ .scroll::-webkit-scrollbar {
+     width: 6px;
+     height: 6px;
+
+ }
+
+ ::-webkit-scrollbar-track,
+ body::-webkit-scrollbar-track,
+ .scroll::-webkit-scrollbar-track {
+     box-shadow: inset 0 0 6px #FFFFFF;
+     background: #FFFFFF
+ }
+
+ ::-webkit-scrollbar-thumb,
+ body::-webkit-scrollbar-thumb,
+ .scroll::-webkit-scrollbar-thumb {
+     background: rgba(0, 0, 0, 0.3);
+     border-radius: 20px;
+ }
+
+ ::-webkit-scrollbar-thumb:hover,
+ body::-webkit-scrollbar-thumb:hover,
+ .scroll::-webkit-scrollbar-thumb:hover {
+     background: rgba(0, 0, 0, 0.5);
+ }

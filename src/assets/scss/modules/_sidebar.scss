@@ -1,0 +1,126 @@
+// #sidebar{
+//     .logo{
+//         width: 100px;
+//         height: 100px;
+//     }
+//     .test{
+//         color: $main-color;
+//     }
+// }
+#sidebar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+    transition: .3s all;
+    z-index: 99;
+    &.active{
+        width: 80px;
+        .nav_name{
+            width: 0px !important;
+            opacity: 0;
+            display: none;
+        }
+        .left{
+            svg{
+                font-size: 0px !important;
+            }
+        }
+        .logo {
+            width: 66px;
+            height: 76px;
+            margin: auto;
+        }
+    }
+    .list{
+        padding-left: 0px;
+        padding-right: 15px;
+    }
+    .logo{
+        width: 167px;
+        height: 183px;    
+        margin: auto;
+    }
+    .sidebar_nav{
+        .nav_item{  
+            position: relative;
+            margin-bottom: 15px;   
+            transition: .3s all;
+
+            a , button{
+                padding: 7px 14px !important;
+                width: 100%;
+                border-radius: 0;
+                border: none !important;
+            }
+            
+            
+
+            .icon{
+                background-color: #f7f7f7;
+                width: 30px;
+                height: 30px;
+                padding: 5px;
+                border-radius: 3px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                &.logout{
+                    color: #d9332e;
+                }
+
+            }
+            .left{
+                svg{
+                    font-size: 11px;
+                    position: absolute;
+                    left: 30px;
+                    top: 17px;
+                    transition: .3s all;
+                }
+            }
+            .nav_name{
+                font-size: 14px;
+                transition: .3s all;
+            }
+            
+        }
+
+
+        .router-link-active{
+            background: #3290d8;
+            border-radius: 3px;
+            color:#fff !important;
+            .icon{
+                svg{
+                    color: #3290d8;
+                }
+            }
+            &::before{
+                content: "";
+                position: absolute;
+                height: 100%;
+                width: 5px;
+                right: -15px;
+                top: 0;
+                background-color: #c09434;
+                border-radius: 2px;
+            }
+        }
+        // a{
+        //     &.router-link-active{
+        //         background-color: $main-background;
+        //     }
+        // }
+    }
+}
+
+
+#sidebar.active .sidebar_nav .nav_item > a ,
+#sidebar.active .sidebar_nav .nav_item > button{
+    justify-content: center;
+    display: flex;
+}
