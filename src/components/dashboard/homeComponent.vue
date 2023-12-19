@@ -26,7 +26,7 @@
                             <img :src="require('@/assets/imgs/check.png')" alt="">
                         </div>
                         <div class="card_icon" v-if="sta.key==$t('home.treatNum')">
-                            <img :src="require('@/assets/imgs/check.png')" alt="">
+                            <img :src="require('@/assets/imgs/Group 176368.svg')" alt="">
                         </div>
                         <div class="card_icon" v-if="sta.key==$t('home.urgentNum')">
                             <img :src="require('@/assets/imgs/circle.png')" alt="">

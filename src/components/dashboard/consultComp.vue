@@ -9,7 +9,7 @@
     </section>
 
     <!-- steps  -->
-    <section class="main-bg steps flex_between pt-3 pb-3 px-5 mx-5 mb-3" v-if="isShown">
+    <section class="main-bg steps flex_between pt-3 pb-3 px-5 mx-5 mb-3" v-if="isShown&&consult.status !== 'cancelled'">
 
         <!-- single step  -->
         <div class="step d-flex align-items-center">
@@ -28,15 +28,15 @@
             <span class="step_number" :class="{active : consult.status == 'finish'||consult.status == 'cancelled'}"> 3 </span>
             <span class="step-text grayColor mx-2" :class="{active : consult.status == 'finish'||consult.status == 'cancelled'}"> {{ $t('dash.finish') }} </span>
         </div>
-        <span class="line" :class="{active : consult.status == 'cancelled'}"></span>
+        <!-- <span class="line" :class="{active : consult.status == 'cancelled'}"></span> -->
          <!-- single step  -->
-         <div class="step d-flex align-items-center">
+         <!-- <div class="step d-flex align-items-center">
             <span class="step_number" :class="{active : consult.status == 'cancelled'}"> 4 </span>
             <span class="step-text grayColor mx-2" :class="{active : consult.status == 'cancelled'}"> {{ $t('dash.canceled') }} </span>
-        </div>
+        </div> -->
     </section>
 
-    <Skeleton v-else class="px-5 mb-3 mx-auto" style="width:90%" height="4rem"></Skeleton>
+    <Skeleton v-else-if="!isShown" class="px-5 mb-3 mx-auto" style="width:90%" height="4rem"></Skeleton>
     
     <!-- order details  -->
     <section class="main-bg pt-3 pb-3 mx-5 mb-3" v-if="isShown">
@@ -224,7 +224,7 @@
 
 
     <!-- report  -->
-    <section class="main-bg pt-3 pb-3 mx-5 mb-3" v-if="isReported==true">
+    <section class="main-bg pt-3 pb-3 mx-5 mb-3" v-if="isReported===true">
         <h6 class="sec-color fs-17 fw-6 px-5 mb-3"> {{ $t('common.note') }} </h6>
 
         <p class="grayColor mx-5 fs-14">
@@ -236,6 +236,16 @@
                 <img :src="require('@/assets/imgs/pdf.png')" alt="">
             </a>
         </div>
+    </section>
+
+    <section class="main-bg pt-3 pb-3 mx-5 mb-3" v-if="isRejected===true">
+        <h6 class="sec-color fs-17 fw-6 px-5 mb-3"> {{ $t('common.refuseReason') }} </h6>
+
+        <p class="grayColor mx-5 fs-14">
+            {{ reasonDescription }}
+        </p>
+
+        
     </section>
     <!-- v-if="consult.isReported === true" -->
     <!-- <Skeleton v-else-if="" class="px-5 mb-3 mx-auto" style="width:90%" height="6rem"></Skeleton> -->
@@ -256,8 +266,10 @@ export default {
             isShown : false,
             patient : null,
             doctor : null,
-            report : null,
-            isReported : null
+            report : {},
+            isReported : null,
+            isRejected : null,
+            reasonDescription : ''
         }
     },
     components:{
@@ -277,8 +289,10 @@ export default {
                     this.consult = res.data.data ;
                     this.patient = res.data.data.patient ;
                     this.isReported = res.data.data.isReported ;
+                    this.isRejected = res.data.data.isRejected ;
                     this.doctor = res.data.data.doctor ;
                     this.report = res.data.data.report ;
+                    this.reasonDescription = res.data.data.reasonDescription ;
                     this.isShown = true ;
                 }
             } )

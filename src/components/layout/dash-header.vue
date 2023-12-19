@@ -31,7 +31,7 @@
                         </div>
                         <div class="admin_info mx-2">
                             <h6 class="name fw-bold"> {{ name }} </h6>
-                            <span class="title fw-6"> {{ title }} </span>
+                            <span class="title fw-6" style="display: block;text-align: start;margin-top: 4px;color: rgb(185 178 178);"> {{ title }} </span>
                         </div>
                         <span class="profile_icon">
                             <i class="fa-solid fa-angle-down"></i>
@@ -58,10 +58,10 @@
                         <img class="flag_img" :src="require('@/assets/imgs/sudia.png')" alt=""  v-if="$i18n.locale=='ar'">
                         <img class="flag_img" :src="require('@/assets/imgs/en.png')" alt=""  v-else-if="$i18n.locale=='en'">
                         
-                        <span v-if="$i18n.locale=='ar'">
+                        <span v-if="$i18n.locale=='ar'" class="mx-2">
                             {{ $t('dash.arabic') }}
                         </span>
-                        <span v-else-if="$i18n.locale=='en'">
+                        <span v-else-if="$i18n.locale=='en'" class="mx-2">
                             {{ $t('dash.english') }}
                         </span>
                         <i class="fa-solid fa-angle-down"></i>
@@ -191,9 +191,10 @@ export default {
     }
     .profile_icon{
         position: absolute;
-        left: 3px;
-        font-size: 13px;
-        top: 27%;
+        left: 8px;
+        font-size: 10px;
+        top: 25%;
+        color: #8e8787;
     }
     .flag_img{
         width: 25px;

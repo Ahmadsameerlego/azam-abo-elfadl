@@ -94,10 +94,10 @@
                         </span>
                         <!-- delete  -->
                         <span class="delete" @click="deleteDoctor(slotProps.data.id, slotProps.index)">
-                            <i class="fa-regular fa-trash-can" v-if="!showDeleted[slotProps.index]"></i>
-                            <div class="spinner-border" role="status" v-else>
+                            <i class="fa-regular fa-trash-can" ></i>
+                            <!-- <div class="spinner-border" role="status" v-else>
                                 <span class="visually-hidden">Loading...</span>
-                            </div>
+                            </div> -->
                         </span>
                    </div>
                 </template>

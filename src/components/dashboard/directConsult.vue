@@ -39,7 +39,7 @@
 
         <DataTable 
             :value="consutlations" 
-            tableStyle="min-width: 50rem" 
+            tableStyle="min-width: 74rem" 
             paginator :rows="5"  
             :rowsPerPageOptions="[5, 10, 20, 50]" 
             sortMode="multiple"
@@ -59,6 +59,7 @@
             <Column field="name" :header="$t('con.clientName')" sortable></Column>
             <Column field="phone" :header="$t('con.phone')" sortable></Column>
             <Column field="specialistName" :header="$t('con.specName')" sortable></Column>
+            <Column field="specialization" :header="$t('dash.asked')" sortable></Column>
             <Column field="date" :header="$t('session.appoint')" sortable ></Column>
 
             <Column  header="" >

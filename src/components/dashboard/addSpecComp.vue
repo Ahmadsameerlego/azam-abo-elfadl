@@ -1,7 +1,8 @@
 <template>
     <section class="pt-3 pb-3 px-5 flex_between">
         <div>
-            <h6 class="fw-bold blackColor"> {{ $t('common.addSpec') }} </h6>
+            <h6 class="fw-bold blackColor"  v-if="!$route.fullPath.includes('editDoctor')"> {{ $t('common.addSpec') }} </h6>
+            <h6 class="fw-bold blackColor" v-if="$route.fullPath.includes('editDoctor')"> {{ $t('common.editSpec') }} </h6>
             <p class="grayColor"> {{  $t('common.specDesc')  }} </p>
         </div>
     </section>

@@ -12,8 +12,8 @@
             <div class="wallet_img mb-2">
                 <img :src="require('@/assets/imgs/wallet.png')" alt="wallet">
             </div>
-            <h3 class="sec-color fw-bold mb-2" v-html="wallet"></h3>
-            <div>
+            <h3 class="sec-color fw-bold mb-2">{{ wallet }} رس</h3>
+            <div v-if="wallet>0">
                 <button class="main_btn btn w-100 px-5" :disabled="disabled" @click.prevent="widthDraw">
                      <span v-if="!disabled"> {{ $t('wallet.withdraw') }} </span>
                      <div class="spinner-border" role="status" v-if="disabled">
@@ -41,7 +41,7 @@ export default {
     methods:{
         // get wallet data 
         async getWallet(){
-            await axios.get('/wallet' , {
+            await axios.get('/center-wallet' , {
                 headers : {
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }

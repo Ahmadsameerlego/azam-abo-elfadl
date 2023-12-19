@@ -13,6 +13,7 @@
       "logout": "Logout"
     },
     "common": {
+      "refuseReason" : "Rejected Reason",
       "prev" : "previous",
       "next" : "next",
       "reserved" : "All seats have been reserved",
@@ -20,6 +21,7 @@
       "emailValid" : "Please enter a valid email address.",
       "addApoint"  : "Please enter the appointments.",
       "addSpec": "Add Specialist",
+      "editSpec" : "Edit Specialist",
       "specDesc": "You can add a new specialist and have the ability to edit or delete them.",
       "specInfo": "Specialist Information",
       "specName": "Specialist Name",

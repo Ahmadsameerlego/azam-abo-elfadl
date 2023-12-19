@@ -5,7 +5,11 @@ body{
         #content{
             margin-left: 300px;
             margin-right: 0;
-        }   
+        }  
+        #content.active {
+            // width: calc(100% - 80px);
+            margin-left: 80px;
+        }         
         #header{
             right: 0;
             left: auto;

@@ -73,6 +73,10 @@
         </DataTable>
         <Skeleton v-else style="width:90%;margin:auto" height="10rem"></Skeleton>
 
+        <!-- <div v-if="financials.length==0&&is" class="text-center">
+            {{ $t('fin.notFound') }}
+        </div> -->
+
     </div>
 
     <Toast />
@@ -198,6 +202,9 @@ export default {
 </script>
 
 <style lang="scss">
+    .p-datatable-emptymessage td{
+        text-align: center !important;
+    }
     .financial .p-calendar .p-inputtext{
         background-color: #fff !important;
     }

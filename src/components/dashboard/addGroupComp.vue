@@ -135,7 +135,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group ">
                         <label for="" class="blackColor d-block fw-6 mb-2 fs-14">
-                            {{ $t('group.nameAr') }}
+                            {{ $t('session.nameAr') }}
                             <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                         </label>
                         <InputText type="text" v-model="namesAr[index]" class="default_input w-100" :placeholder="$t('session.namePlc')" />
@@ -145,7 +145,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group ">
                         <label for="" class="blackColor d-block fw-6 mb-2 fs-14">
-                            {{ $t('group.nameEn') }}
+                            {{ $t('session.nameEn') }}
                             <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                         </label>
                         <InputText type="text" v-model="namesEn[index]" class="default_input w-100" :placeholder="$t('session.namePlc')" />
@@ -655,10 +655,12 @@ export default {
                         doctors : [this.selectedDoctors[i].id ]
 
                     })
-                    // append sessions 
-                    fd.append('sessions', JSON.stringify(this.appendedSessions));
                 }
             }
+
+            // append sessions 
+            fd.append('sessions', JSON.stringify(this.appendedSessions));
+
 
             this.disabled = true ;
                 await axios.post('/create-support-group', fd , {
