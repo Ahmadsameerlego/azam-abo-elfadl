@@ -34,7 +34,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/specialistsManage" class="flex_between" :class="{'router-link-active':$route.fullPath.includes('addSpecialist')||$route.fullPath.includes('editDoctor')}">
+          <router-link to="/center/specialistsManage" class="flex_between" :class="{'router-link-active':$route.fullPath.includes('addSpecialist')||$route.fullPath.includes('editDoctor')||$route.fullPath.includes('center/rates')}">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-users"></i>

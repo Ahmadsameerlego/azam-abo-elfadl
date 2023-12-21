@@ -649,10 +649,10 @@ export default {
             fd.append('duration', this.durationDays);
 
             // add medicienes 
-            // this.medicines_appended.push({
-            //     ar : this.nameAr,
-            //     en : this.nameEn
-            // })
+            this.medicines_appended.push({
+                ar : this.nameAr,
+                en : this.nameEn
+            })
             for( let i = 0 ; i < this.items.length ; i++ ){
                 this.medicines_appended.push({
                     ar : this.namesAr[i],

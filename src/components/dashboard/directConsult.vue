@@ -37,7 +37,8 @@
     <!-- table  -->
     <div class="table">
 
-        <DataTable 
+        <keep-alive  v-if="isShown">
+            <DataTable 
             :value="consutlations" 
             tableStyle="min-width: 74rem" 
             paginator :rows="5"  
@@ -45,7 +46,7 @@
             sortMode="multiple"
             v-model:filters="filters"
             style="width:90%;margin:auto" 
-            v-if="isShown"
+           
         >
              
             <template #empty> {{ $t('con.notFound') }} </template>
@@ -75,7 +76,8 @@
                 </template>
             </Column>
         </DataTable>
-
+        </keep-alive>
+        
 
         <Skeleton v-else style="width:90%;margin:auto" height="10rem"></Skeleton>
     </div>

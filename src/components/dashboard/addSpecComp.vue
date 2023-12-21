@@ -208,7 +208,7 @@
                     </div>
                 </div>
 
-                <span class="error text-danger fs-13" v-if="isAppoint"> {{ $t('common.addApoint') }} </span>
+              <span class="error text-danger fs-13" v-if="isAppoint[index]"> {{ $t('common.addApoint') }} </span>
             </div>
 
 
@@ -219,6 +219,7 @@
                 </span>
                 <span class="mx-2 fw-6"> {{ $t('common.addAnotherDate')  }} </span>
             </div>
+            <div class="text-center text-danger" v-if="showAppValid"> يرجى اضافة المواعيد </div>
 
 
             <div class="d-flex justify-content-center align-items-center mt-3">
@@ -308,8 +309,14 @@
                         </Dialog>
 
                     </div>
-                </div>
+                    <!-- <span class="error text-danger fs-13" v-if="isAppointGetted"> {{ $t('common.addApoint') }} </span> -->
+
+                </div>  
+                <span class="error text-danger fs-13" v-if="isAppoint[index]"> {{ $t('common.addApoint') }} </span>
+
+
             </div>
+
 
 
             <!-- add new date  -->
@@ -445,12 +452,13 @@ export default {
             isTime : false,
             isAr : false,
             isEn : false,
-            isAppoint : false,
+            isAppoint : [],
             isAvatar: false,
 
             deleteDisabledButton : false,
 
-            isNew : []
+            isNew : [],
+            showAppValid : false
 
 
         }
@@ -566,6 +574,10 @@ export default {
         formatTo(){
             return this.formatTimeTo12HourFormat(this.new_appointments.to)
         },
+
+        isEditAppFalse(){
+            return this.isAppoint.every( item => item === false )
+        }
     },
     methods:{
         ...mapActions('setting',['getCountries']),
@@ -624,6 +636,7 @@ export default {
         },
         // add another appointment 
         addAnotherAppointment(){
+            this.showAppValid = false ; 
             this.new_appointments.push({
                 selectedDay: null,
                 startTime: null,
@@ -671,9 +684,9 @@ export default {
                             });
                         }
 
-                        this.isAppoint = false ;
+                        this.isAppoint[i] = false ;
                     }else{
-                        this.isAppoint = true ;
+                        this.isAppoint[i] = true ;
                     }
 
 
@@ -686,17 +699,19 @@ export default {
         storeForEdit(){
             // loop through appended appointments
             if (this.new_appointments.length > 0) {
-
                 for (let i = 0; i < this.new_appointments.length ; i++) {
                     let sendedDay = null ;
                     let startTime = null ;
                     let endTime = null ;
                     if(typeof this.new_appointments[i].day === 'object'){
+
                         sendedDay = this.new_appointments[i].day.name ;
                         startTime = this.formatTimeTo12HourFormat(this.new_appointments[i].startTime)  ;
                         endTime = this.formatTimeTo12HourFormat(this.new_appointments[i].endTime)  ;
-                        // console.log('yes')
-                    } 
+                        this.isAppoint[i] = false ;
+                    } else{
+                        this.isAppoint[i] = true ;
+                    }
                     // else if( !(typeof this.new_appointments[i].day === 'object')){
                     //     sendedDay = this.new_appointments[i].day ;
                     //     startTime = this.new_appointments[i].startTime;
@@ -777,6 +792,14 @@ export default {
             }else{
                 this.isAvatar = false ;
             }
+            if( this.new_appointments.length == 0 ){
+                this.showAppValid = true ;
+            }
+            else{
+                this.showAppValid = false ; 
+            }
+
+            console.log(this.dates)
             // appointment 
             // if( this.new_appointments.leng )
             this.storeAppointment();
@@ -799,7 +822,10 @@ export default {
             fd.append('center', JSON.parse(localStorage.getItem('user')).id);
 
             this.storeAppointment();
+
+            
             fd.append('appointments', JSON.stringify(this.dates));
+
 
             await axios.post('/add-doctor', fd , {
                 headers : {
@@ -950,7 +976,7 @@ export default {
             this.storeForEdit() ;
             // appointment 
             // if( this.new_appointments.leng )
-            if( this.isName == false && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false&& this.isAppoint == false && this.isAvatar == false ){
+            if( this.isName == false && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false && this.isEditAppFalse == false && this.isAvatar == false ){
                 this.mainEdit();
             }
             

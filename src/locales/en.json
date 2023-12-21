@@ -13,6 +13,7 @@
       "logout": "Logout"
     },
     "common": {
+      "deleteDoc" : "Are You Sure To Delete The Specialist",
       "refuseReason" : "Rejected Reason",
       "prev" : "previous",
       "next" : "next",
@@ -48,7 +49,7 @@
       "new": "New",
       "current": "Current",
       "finish": "Finished",
-      "cancel": "Canceled",
+      "cancel": "Cancelled",
       "num": "Number",
       "clientName": "Client Name",
       "addType": "Addiction Type",
@@ -180,12 +181,12 @@
     },
     "home": {
       "dash": "Dashboard",
-      "docNum": "Specialists count",
-      "supportNum": "supportGroup count",
-      "total": "total number of cases",
-      "urgentNum": "urgentConsultation count",
-      "personsNum": "Subscriptions count",
-      "treatNum": "treatmentPlan count",
+      "docNum": "specialists",
+      "supportNum": "supportGroups",
+      "total": "patients",
+      "urgentNum": "urgentConsultations",
+      "personsNum": "subscriptions",
+      "treatNum": "treatmentPlans",
       "profits": "profits statistics",
       "opinions": "Customer Opinions",
       "noRates" : "No Rates Till Now"
@@ -381,7 +382,21 @@
         "docPlc": "Choose the Doctor",
         "patient": "Patients",
         "patientPlc": "Choose Patients"
-      }
+      },
+      "year" : {
+        "jan" : "January",
+        "feb" : "February",
+        "march"  :"March",
+        "april" : "April",
+        "May" : "May",
+        "jun" : "June",
+        "july" : "July",
+        "aug" : "Aug",
+        "sep" : "sep",
+        "oct" : "oct",
+        "nov" : "nov",
+        "dec" : "dec"
+    }
     
   }
   

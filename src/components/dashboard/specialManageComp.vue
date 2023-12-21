@@ -93,7 +93,8 @@
                             <i class="fa-regular fa-bell"></i>
                         </span>
                         <!-- delete  -->
-                        <span class="delete" @click="deleteDoctor(slotProps.data.id, slotProps.index)">
+                        <span class="delete" @click="openDelete(slotProps.data.id)">
+                            <!-- deleteDoctor(slotProps.data.id, slotProps.index) -->
                             <i class="fa-regular fa-trash-can" ></i>
                             <!-- <div class="spinner-border" role="status" v-else>
                                 <span class="visually-hidden">Loading...</span>
@@ -158,6 +159,17 @@
 
         </form>
     </Dialog>
+
+    <!-- send notification  -->
+    <Dialog v-model:visible="delete_doc" modal  :style="{ width: '50vw' }">
+        <h4 class="text-center main-color fw-6"> {{ $t('common.deleteDoc') }} </h4>
+
+        <div class="d-flex">
+            <button class="btn btn-danger w-50" @click.prevent="deleteDoctor" :disabled="disabled_doc"> حذف </button>
+            <button class="btn btn-secondary mx-2 w-50" @click="delete_doc=false"> الغاء </button>
+        </div>
+        
+    </Dialog>
     <Toast />
 
 
@@ -198,7 +210,10 @@ export default {
             isTitleAr : false ,
             isTitleEn : false ,
             isMessageAr : false ,
-            isMessageEn : false
+            isMessageEn : false,
+            delete_doc : false,
+            doctor_id : '',
+            disabled_doc : false
         };
     },
     components:{
@@ -213,6 +228,10 @@ export default {
         // Row
     },
     methods:{
+        openDelete( id){
+            this.delete_doc = true ;
+            this.doctor_id = id ;
+        },
         // deactive 
         async deactive(id, index){
             this.disabledActive[index] = true ;
@@ -240,9 +259,10 @@ export default {
             } )
         },
         // delete doctors 
-        async deleteDoctor(id, index){
-            this.showDeleted[index] = true ;
-            await axios.delete(`/delete-doctor?id=${id}`,{
+        async deleteDoctor(){
+            // this.showDeleted[index] = true ;
+            this.disabled_doc = true ;
+            await axios.delete(`/delete-doctor?id=${this.doctor_id}`,{
                 headers:{
                     Authorization : `Bearer ${localStorage.getItem('token')}`
                 }
@@ -253,15 +273,19 @@ export default {
                     // setTimeout(() => {
                         this.getDoctors()
                     // }, 1000);
-                    this.showDeleted[index] = false ;
+                    // this.showDeleted[index] = false ;
+                    this.delete_doc = false;
+                    this.disabled_doc = false ;
                 }else{
                     this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });
-                    this.showDeleted[index] = false ;
+                    // this.showDeleted[index] = false ;
+                    this.disabled_doc = false ;
                 }
             } )
             .catch( (err)=>{
                 this.$toast.add({ severity: 'error', summary: err.response.data.message, life: 3000 });
-                this.showDeleted[index] = false ;
+                // this.showDeleted[index] = false ;
+                this.disabled_doc = false ;
             } )
         },
         openNotiftDialog(id){

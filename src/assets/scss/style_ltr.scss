@@ -2,6 +2,11 @@ body{
     &.ltr{
         direction: ltr;
         text-align: left; 
+        .p-accordion .p-accordion-header .p-accordion-header-link .p-accordion-toggle-icon{
+            margin-left: 0px !important;
+            right: 9px;
+            left:auto ;
+        }
         #content{
             margin-left: 300px;
             margin-right: 0;

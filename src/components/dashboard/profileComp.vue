@@ -69,6 +69,7 @@
               :options="countries"
               optionLabel="name"
               class="default_input country_code w-full md:w-14rem"
+              disabled
             >
               <template #value="slotProps">
                 <div class="flex align-items-center">
@@ -106,16 +107,19 @@
             {{ $t('auth.spec') }}
           </label>
 
-          <Dropdown
+          <!-- <MultiSelect
             v-model="selectedSpecial"
             :options="specials"
             optionLabel="name"
             :placeholder="specialPlace"
             class="default_input w-100 w-full md:w-14rem"
-          />
+            @change="handleSpecs"
+          /> -->
+          <MultiSelect v-model="selectedSpecial" display="chip"    :options="specials"  :maxSelectedLabels="5" optionLabel="name" :placeholder="$t('auth.specPlc')" class="default_input w-100 w-full md:w-14rem" @change="handleSpecs" />
+
 
           <span class="error text-danger fs-14" v-if="showSpecError">
-              يرجى اختيار اخصائي
+              يرجى اختيار التخصص
           </span>
         </div>
 
@@ -402,6 +406,7 @@ import Dialog from "primevue/dialog";
 
 import axios from "axios";
 import Toast from "primevue/toast";
+import MultiSelect from 'primevue/multiselect';
 
 export default {
   data() {
@@ -475,6 +480,8 @@ export default {
       showBank : false,
       showName : false,
 
+      new_specs : []
+
     }
   },
   components: {
@@ -483,6 +490,7 @@ export default {
     Dialog,
     // InputNumber,
     Toast,
+    MultiSelect
   },
   watch:{
     phone(){
@@ -620,6 +628,16 @@ export default {
         });
     },
 
+    handleSpecs(){
+            // const newspecs = [] ;
+            // for( let i = 0 ; i<this.selectedSpecial.length ; i++ ){
+            //     this.new_specs.push(this.selectedSpecial[i].id) 
+            // }
+            console.log(JSON.stringify(this.new_specs)) ;
+            // this.new_specs = Object.values(newspecs) ;
+            // // console.log( this.new_specs)
+        },
+
     // resend code
     async resendCode() {
       const fd = new FormData();
@@ -738,9 +756,9 @@ export default {
 
       fd.append("deleteImageName", JSON.stringify(this.sendedImgs));
       fd.append("countryCode", this.selectedCountry.code);
-      let arraySpecial = [];
-      arraySpecial.push(this.selectedSpecial.id)
-      fd.append("specialization", JSON.stringify(arraySpecial));
+      // let arraySpecial = [];
+      // arraySpecial.push(this.selectedSpecial.id)
+      fd.append("specialization", JSON.stringify(this.new_specs));
       //   fd.append("city", this.selectedCity.id);
 
       await axios
@@ -786,11 +804,15 @@ export default {
     },
     // get cities
     removeImageEdited(image, i) {
-      let namesArray = [];
-      namesArray.push(image);
-      console.log(namesArray);
+      // let namesArray = [];
+      // namesArray.push(image);
+      this.sendedImgs.push( image  );
+
+      // console.log(namesArray);
       this.imagesEdited.splice(i, 1);
-      this.sendedImgs = namesArray;
+      console.log(this.sendedImgs)
+
+
     },
 
     async getSpecialists() {
@@ -799,6 +821,7 @@ export default {
         .then((res) => {
           //   console.log(res.data.data);
           this.specials = res.data.data.specializations;
+          // console.log(this.specials);
           this.countries = res.data.data.countries;
           this.cities = this.selectedCountry.cities;
         })
@@ -824,7 +847,21 @@ export default {
             this.phone = res.data.data.phone;
             this.ownerName = res.data.data.ownerName;
             this.imagesEdited = res.data.data.images;
-            this.selectedSpecial = res.data.data.specialization[0];
+            this.selectedSpecial = res.data.data.specialization;
+            console.log(this.selectedSpecial)
+          
+
+
+            let mainAraay = []
+          for(let i = 0 ; i < res.data.data.specialization.length; i++){
+            mainAraay.push({id : res.data.data.specialization[i].id , name:res.data.data.specialization[i].name })
+          }
+   
+          this.selectedSpecial = mainAraay;
+
+
+
+
             this.specialPlace = res.data.data.specialization[0].name;
             this.locations.lat = res.data.data.latitude;
             this.locations.lng = res.data.data.longitude;
@@ -930,6 +967,9 @@ export default {
       }
     },
   },
+  // beforeMount(){
+
+  // },
   mounted() {
     this.geolocation();
     // document.querySelector(".p-dropdown-label").innerHTML =
@@ -937,8 +977,10 @@ export default {
     //         <img src="${this.selectedCountry.image}" class="country_image">
     //         ${this.selectedCountry.code}
     //         ` ;
+    setTimeout(() => {
+      this.getSpecialists();
+    }, 2000);
     this.getProfile();
-    this.getSpecialists();
     this.chooseCountry();
     // this.getCities();
 

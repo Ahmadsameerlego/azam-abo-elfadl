@@ -17,7 +17,7 @@
                     }">
                         <div>
                             <h4 class="fw-bold whiteColor"> {{ sta.count }} </h4>
-                            <p class="whiteColor"> {{ sta.key }} </p>
+                            <p class="whiteColor"> {{ sta.name }} </p>
                         </div>
                         <div class="card_icon" v-if="sta.key==$t('home.docNum')||sta.key==$t('home.supportNum')">
                             <img :src="require('@/assets/imgs/rotate.png')" alt="">
@@ -164,7 +164,7 @@ export default {
             // const documentStyle = getComputedStyle(document.documentElement);
 
             return {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug', 'sep', 'oct', 'nov','dec'],
+                labels: [this.$t('year.jan'), this.$t('year.feb'), this.$t('year.march'), this.$t('year.april'), this.$t('year.May'), this.$t('year.jun'), this.$t('year.july'), this.$t('year.aug'), this.$t('year.sep'), this.$t('year.oct'),this.$t('year.nov'),this.$t('year.dec')],
                 datasets: [
                     
                     {

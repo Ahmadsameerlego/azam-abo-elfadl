@@ -30,9 +30,9 @@
         <button class="filter_item" :class="{'active' : activeFilter === 3 }" @click="setActiveFilter(3, 'finish')">
             {{ $t('common.finish') }}
         </button>
-        <!-- <button class="filter_item" :class="{'active' : activeFilter === 4 }" @click="setActiveFilter(4, 'cancelled')">
+        <button class="filter_item" :class="{'active' : activeFilter === 4 }" @click="setActiveFilter(4, 'cancelled')">
             {{ $t('common.cancel') }}
-        </button> -->
+        </button>
     </section>
     <!-- table  -->
     <div class="table">

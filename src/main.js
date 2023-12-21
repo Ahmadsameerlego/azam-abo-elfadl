@@ -60,7 +60,7 @@ axios.interceptors.response.use(
 response => response,
 error => {
     // Check if the error response status is 401 (unauthenticated)
-    if (error.response.data.key === 'unauthorized') {
+    if (error.response.data.key === 'unauthorized' || error.response.data.message === 'هذا الحساب غير موجود') {
     // Perform your action here, such as redirecting to the login page
     // For example:
     // router.push('/login');

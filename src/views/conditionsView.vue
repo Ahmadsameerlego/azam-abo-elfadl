@@ -42,7 +42,7 @@
         async getConditions(){
             await axios.get('/terms')
             .then((res)=>{
-                this.terms = res.data.message ;
+                this.terms = res.data.data ;
             } )
         } 
     },

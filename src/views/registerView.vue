@@ -16,7 +16,7 @@
             <form @submit.prevent="register" ref="register">
                 <!-- profile pic  -->
                 <section class="profile_pic mx-auto d-flex mt-4">
-                    <input id="upload-img" hidden type="file" name="avatar" @change="uploadProfilePic" class="uploadInput">
+                    <input id="upload-img"  type="file" name="avatar" @change="uploadProfilePic" class="uploadInput">
                     <!-- default image  -->
                     <img :src="require('@/assets/imgs/logo.png')" ref="profile" class="profile_image" alt="">
                     <!-- edit  -->
@@ -24,6 +24,8 @@
                         <i class="fa-solid fa-pen-to-square"></i>
                     </label>
                 </section>
+
+                <div class="text-center text-danger fs-13" v-if="isPic"> يرجي اختيار الصورة </div>
 
                 <!-- name   -->
                 <div class="form-group mb-3 ">
@@ -74,7 +76,7 @@
                     <MultiSelect v-model="selectedSpec" :options="specs"  :maxSelectedLabels="3" optionLabel="name" :placeholder="$t('auth.specPlc')" class="default_input w-100 w-full md:w-14rem" @change="handleSpecs" />
 
                     <span class="error text-danger fs-14" v-if="showSpecError">
-                        يرجى اختيار اخصائي
+                        يرجى اختيار التخصص
                     </span>
                 </div>
 
@@ -111,7 +113,7 @@
                     <input type="number" min="1" v-model="commercialNumber" class="default_input form-control w-100" :placeholder="$t('auth.numberPlc')">
 
                     <span class="error text-danger fs-14" v-if="showCom">
-                        هذا الحقل مطلوب
+                        {{ $t('auth.numberPlc') }}
                     </span>
                 </div>
 
@@ -121,7 +123,7 @@
                     </label>
                     <InputText type="text" v-model="ownerName" name="ownerName" class="default_input w-100" :placeholder="$t('auth.ownerPlc')" />
                     <span class="error text-danger fs" v-if="showOwn">
-                        هذا الحقل مطلوب
+                        {{ $t('auth.ownerPlc') }}
                     </span>
                 </div>
 
@@ -131,7 +133,7 @@
                     </label>
                     <InputText type="text" v-model="bankName"  name="bankName" class="default_input w-100" :placeholder="$t('auth.bankPlc')" />
                     <span class="error text-danger fs" v-if="showBank">
-                        هذا الحقل مطلوب
+                        {{ $t('auth.bankPlc') }}
                     </span>
                 </div>
 
@@ -141,7 +143,7 @@
                     </label>
                     <InputText type="text" v-model="iban" name="iban" class="default_input w-100" :placeholder="$t('auth.ibanPlc')" />
                     <span class="error text-danger fs" v-if="showIban">
-                        هذا الحقل مطلوب
+                        {{ $t('auth.ibanPlc') }}
                     </span>
                 </div>
 
@@ -161,6 +163,7 @@
                                 accept="image/*"
                                 multiple
                                 name="images"
+                                
                                 @change="uploadAdImages($event.target)"
                              >
                             <span class="icon">
@@ -189,6 +192,8 @@
 
 
                     </section>
+
+                    <span class="text-danger fs-13" v-if="isImages">  يرجى اختيار صور الاعتمادات </span>
                 </div>
                 
 
@@ -310,7 +315,10 @@ export default {
             showSpecError : false,
             showCityError : false,
             showAddressError : false,
-            showIban : false
+            showIban : false,
+            isPic : false,
+            isImages : false,
+            selectedImages2 : null
         }
     },
     validations(){
@@ -477,8 +485,22 @@ export default {
                 this.showIban = false ;
             }
 
+            if( this.$refs.profile.src.includes('/img/logo.1cc45c6d.png')  ){
+                this.isPic = true ;
+            }else{
+                this.isPic = false ;
+            }
 
-            if( this.showrError == false && this.showName == false && this.showIban == false && this.showBank == false && this.showOwn == false && this.showCom == false && this.showAddressError == false && this.showCityError == false && this.showSpecError == false && this.showEmail == false){
+            // console.log(this.$refs.profile.src)
+
+            if( this.images.length == 0 ){
+                this.isImages = true ;
+            }else{
+                this.isImages = false ;   
+            }
+
+
+            if( this.showrError == false && this.isPic == false && this.showName == false && this.showIban == false && this.showBank == false && this.showOwn == false && this.showCom == false && this.showAddressError == false && this.showCityError == false && this.showSpecError == false && this.showEmail == false){
                 this.mainSubmitForm();
             }
             
@@ -498,6 +520,7 @@ export default {
                 }
                 fd.append( 'commercialNumber', this.commercialNumber );
                 fd.append( 'specialization', JSON.stringify(this.new_specs));
+                // fd.append( 'images', Array.from(this.images));
                 this.disabled=true ;
                 await axios.post('/signup-center', fd)
                 .then((res)=>{
@@ -530,6 +553,7 @@ export default {
             if (file) {
                 this.$refs.profile.src = URL.createObjectURL(file);
             }
+            this.isPic = false ;
         },
         // get cities 
         async getCities(){
@@ -584,12 +608,15 @@ export default {
         // upload images 
         uploadAdImages(file){
             // preview operation 
-            let selectedImages2 = file.files ;
+            this.selectedImages2 = file.files ;
 
-            for( let i = 0 ; i < selectedImages2.length ; i++ ){
-                this.images.push( selectedImages2[i] )
-                this.imagesName.push(selectedImages2[i].name);
+            for( let i = 0 ; i < this.selectedImages2.length ; i++ ){
+                this.images.push( this.selectedImages2[i] )
+                this.imagesName.push(this.selectedImages2[i].name);
             }
+            console.log(Array.from(this.images))
+            // console.log()
+
                  
             
               

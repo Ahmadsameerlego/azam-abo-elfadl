@@ -1,7 +1,7 @@
 {
     "nav":{
         "main" : "الرئيسية",
-        "spec" : "إداة الاخصائيين",
+        "spec" : "إدارة الاخصائيين",
         "direct" : "ادارة الاستشارات المباشرة",
         "treat" : "ادارة الخطط العلاجية",
         "support" : "ادارة مجموعة الدعم",
@@ -12,7 +12,24 @@
         "contact" : "تواصل معنا",
         "logout" : "تسجيل الخروج"
     },
+    "year" : {
+        "jan" : "يناير",
+        "feb" : "فبراير",
+        "march"  :"مارس",
+        "april" : "ابريل",
+        "May" : "مايو",
+        "jun" : "يونيو",
+        "july" : "يوليو",
+        "aug" : "أغسطس",
+        "sep" : "سبتمبر",
+        "oct" : "أوكتوبر",
+        "nov" : "نوفمبر",
+        "dec" : "ديسمبر"
+    },
     "common" : {
+        "delete" : "حذف",
+        "cancell" : "إالغاء",
+        "deleteDoc" : "هل انت متأكد من حذف الأخصائي ؟",
         "refuseReason" : "سبب الإلغاء",
         "editSpec" : "تعديل الأخصائي",
         "prev" : "السابق",
@@ -180,12 +197,12 @@
     },
     "home" : {
         "dash" : "لوحة التحكم",
-        "docNum" : "عدد الاخصائيين",
-        "supportNum" : "عدد جلسات الدعم",
-        "total" : "عدد الحالات الكلي",
-        "urgentNum" : "عدد الاستشارات الفورية",
-        "personsNum" : "عدد الحاضرين لجلسات الدعم",
-        "treatNum" : "عدد الخطط العلاجية",
+        "docNum" : "specialists",
+        "supportNum" : "supportGroups",
+        "total" : "patients",
+        "urgentNum" : "urgentConsultations",
+        "personsNum" : "subscriptions",
+        "treatNum" : "treatmentPlans",
         "profits" : "احصائيات الارباح",
         "opinions" : "أراء العملاء",
         "noRates" : "لا توجد تقييمات إلي الان"
