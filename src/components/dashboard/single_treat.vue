@@ -790,7 +790,7 @@
     </router-link>
   </div>
   <!-- edit offer  -->
-  <div class="send_offer mx-5 mb-4" v-if="treat.status == 'cancelled'">
+  <div class="send_offer mx-5 mb-4" v-if="treat.status == 'cancelled'&&treat.editSendOfferButton==true">
     <router-link :to="'/center/editPriceOffer/' + this.$route.params.id"  @click="storePatient">
       {{ $t("treat.editOffer") }}
     </router-link>
@@ -807,6 +807,7 @@
         <h6 class="mb-2 font14">{{ $t('single.sessionDate') }}</h6>
         <Calendar
           v-model="date"
+          
           :placeholder="$t('single.datePlc')"
           dateFormat="dd-mm-yy"
           :minDate="new Date()"
@@ -937,7 +938,8 @@ export default {
       isDate : false ,
       isTime : false,
       isDoctors : false,
-      isPatients : false
+      isPatients : false,
+      isEdited : false
     };
   },
   components: {
@@ -1016,8 +1018,13 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res.data.data);
+          // console.log(res.data.data);
           if (res.data.key === "success") {
+            if( res.data.data.editSendOfferButton === true ){
+              localStorage.setItem('isEdited', "true")
+            }else{
+              localStorage.setItem('isEdited', "false")
+            }
             this.treat = res.data.data;
             this.patient = res.data.data.patient;
             this.traatmentPlanId = res.data.data.id;
@@ -1027,6 +1034,19 @@ export default {
               res.data.data.finishTreatmentPlanButton;
             this.addAdditionalSessionsButton =
               res.data.data.addAdditionalSessionsButton;
+
+
+            for( let i = 0 ; i < res.data.data.sessions.length ; i++ ){
+              if(res.data.data.sessions[i].reassignmentSessionButton === true  ){
+                this.date = res.data.data.sessions[i].dateText;
+                this.time = res.data.data.sessions[i].timeText ;
+                // console.log(             this.date)
+                // console.log(             this.time)
+              }
+            }
+
+            console.log(this.date)
+            // console.log(this.time)
           }
         })
         .catch((err) => {
@@ -1039,10 +1059,7 @@ export default {
         .get(
           `/available-doctors?id=${this.sessionId}&date=${moment(
             this.date
-          ).format("YYYY-MM-DD")}&startTime=${this.time.toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-          })}&duration=${this.duration}&specialization=${this.specialization}`,
+          ).format("YYYY-MM-DD")}&startTime=${moment(this.time).format('hh:mm A')}&duration=${this.duration}&specialization=${this.specialization}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -1100,18 +1117,21 @@ export default {
       }else{
         this.isTime = false ;
       }
-
+      
       if( this.selectedDoctor.length == 0 || this.selectedDoctor == null ){
         this.isDoctors = true ;
       }else{
         this.isDoctors = false ;
       }
 
-      if( this.selectedPatient.length == 0 || this.selectedPatient == null ){
-        this.isPatients = true ;
-      }else{
-        this.isPatients = false ;
+      if( this.sessionType == 'group' ){
+        if( this.selectedPatient.length == 0 || this.selectedPatient == null ){
+          this.isPatients = true ;
+        }else{
+          this.isPatients = false ;
+        }
       }
+
 
       if( this.isDate == false && this.isTime == false && this.isDoctors == false  && (this.isPatients == false || this.selectedPatient == null)){
           this.mainSend();
@@ -1276,7 +1296,6 @@ export default {
     },
   },
   beforeMount() {
-    this.getTreatment();
   },
   mounted() {
     // this.getPatients();
@@ -1285,11 +1304,13 @@ export default {
     // this.$refs.sessionStatustext1 = 'تم رفض طلب التأجيل';
     // this.$refs.sessionStatustext1.classList.add('textDanger');
     // }, 2000);
+    this.getTreatment();
+
   },
   watch: {
     time(newTime, old) {
       console.log(newTime, old);
-      this.getDoctors();
+      // this.getDoctors();
       // this.date = moment(this.date).format('YYYY-MM-DD')
     },
   },

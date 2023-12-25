@@ -13,8 +13,8 @@
                 <img :src="require('@/assets/imgs/wallet.png')" alt="wallet">
             </div>
             <h3 class="sec-color fw-bold mb-2">{{ wallet }} رس</h3>
-            <div v-if="wallet>0">
-                <button class="main_btn btn w-100 px-5" :disabled="disabled" @click.prevent="widthDraw">
+            <div>
+                <button class="main_btn btn w-100 px-5" :disabled="wallet==0" @click.prevent="widthDraw">
                      <span v-if="!disabled"> {{ $t('wallet.withdraw') }} </span>
                      <div class="spinner-border" role="status" v-if="disabled">
                         <span class="visually-hidden">Loading...</span>

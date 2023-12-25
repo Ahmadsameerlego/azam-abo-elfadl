@@ -152,7 +152,19 @@ const routes = [
     meta : {
       title : 'الرئيسية',
       requiresAuth : true
-    }
+    },
+    beforeEnter: (to, from, next) => {
+      // Check if the user is authenticated
+      const isEdited = localStorage.getItem('isEdited')
+      
+      if (isEdited === "true") {
+        next(); // Allow access to the route
+      } else {
+        // Redirect to the login page or another public route
+        next('/center/home');
+      }
+    },
+
   },
   {
     path : '/center/supportManage/:id',

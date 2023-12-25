@@ -13,6 +13,9 @@
       "logout": "Logout"
     },
     "common": {
+      "all" : "All",
+      "urgent" : "uregent consultations",
+      "plans" : "treatment plans",
       "deleteDoc" : "Are You Sure To Delete The Specialist",
       "refuseReason" : "Rejected Reason",
       "prev" : "previous",

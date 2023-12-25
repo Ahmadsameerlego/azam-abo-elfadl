@@ -124,18 +124,18 @@ export default {
                 {
                     id : 1,
                     name : 'urgentConsultation',
-                    title : 'الاستشارات المباشرة'
+                    title : this.$t('common.urgent')
                 },
                 {
                     id : 2,
                     name : 'treatmentPlan',
-                    title : 'الخطط العلاجية'
+                    title : this.$t('common.plans')
                 }
             ],
             selectedType : {
                     id : 1,
-                    name : 'treatmentPlan',
-                    title : 'الخطط العلاجية'
+                    name : '',
+                    title : this.$t('common.plans')
             },
         };
     },

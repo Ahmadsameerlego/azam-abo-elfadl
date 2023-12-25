@@ -221,12 +221,12 @@
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
               </span>
 
-              <span class="mx-2 nav_name">
+              <span class="mx-4 nav_name">
                 {{  $t('nav.logout')  }}
               </span>
             </div>
 
-            <div class="spinner-border" role="status" v-if="disabled">
+            <div class="spinner-border " role="status" v-if="disabled">
                 <span class="visually-hidden">Loading...</span>
             </div>
 
@@ -295,6 +295,12 @@ export default {
 }
 </script>
 
+<style>
+.nav_item .spinner-border {
+    top: 30% !important;
+    left: 36% !important;
+}
+</style>
 <style  scoped>
   .close_nav{
     display: none;
