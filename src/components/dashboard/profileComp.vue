@@ -115,7 +115,15 @@
             class="default_input w-100 w-full md:w-14rem"
             @change="handleSpecs"
           /> -->
-          <MultiSelect v-model="selectedSpecial" display="chip"    :options="specials"  :maxSelectedLabels="5" optionLabel="name" :placeholder="$t('auth.specPlc')" class="default_input w-100 w-full md:w-14rem" @change="handleSpecs" />
+          <MultiSelect 
+            v-model="selectedSpecial" 
+            display="chip"    
+            :options="specials"  
+            :maxSelectedLabels="20" 
+            optionLabel="name" 
+            :placeholder="$t('auth.specPlc')" 
+            class="default_input w-100 w-full md:w-14rem" 
+          />
 
 
           <span class="error text-danger fs-14" v-if="showSpecError">
@@ -758,7 +766,11 @@ export default {
       fd.append("countryCode", this.selectedCountry.code);
       // let arraySpecial = [];
       // arraySpecial.push(this.selectedSpecial.id)
-      fd.append("specialization", JSON.stringify(this.new_specs));
+      var sendedSpecial = [];
+      for( let i = 0 ; i < this.selectedSpecial.length ; i++ ){
+         sendedSpecial.push(this.selectedSpecial[i].id) ;
+      }
+      fd.append("specialization", JSON.stringify(sendedSpecial));
       //   fd.append("city", this.selectedCity.id);
 
       await axios
@@ -820,7 +832,7 @@ export default {
         .get(`/global`)
         .then((res) => {
           //   console.log(res.data.data);
-          this.specials = res.data.data.specializations;
+          this.specials = res.data.data.specializationsWeb;
           // console.log(this.specials);
           this.countries = res.data.data.countries;
           this.cities = this.selectedCountry.cities;
@@ -829,6 +841,8 @@ export default {
           console.log(err);
         });
     },
+
+    
 
     // get profile
     async getProfile() {
@@ -847,22 +861,24 @@ export default {
             this.phone = res.data.data.phone;
             this.ownerName = res.data.data.ownerName;
             this.imagesEdited = res.data.data.images;
-            this.selectedSpecial = res.data.data.specialization;
-            console.log(this.selectedSpecial)
+            // this.selectedSpecial = res.data.data.specialization;
+            // console.log(this.selectedSpecial)
           
 
 
-            let mainAraay = []
-          for(let i = 0 ; i < res.data.data.specialization.length; i++){
-            mainAraay.push({id : res.data.data.specialization[i].id , name:res.data.data.specialization[i].name })
-          }
-   
-          this.selectedSpecial = mainAraay;
+            if( res.data.data.specialization.length > 0 ){
+              let mainAraay = []
+              for(let i = 0 ; i < res.data.data.specialization.length; i++){
+                mainAraay.push({id : res.data.data.specialization[i].id , name:res.data.data.specialization[i].name })
+              }
+      
+              this.selectedSpecial = mainAraay;
+
+            }
 
 
 
-
-            this.specialPlace = res.data.data.specialization[0].name;
+            // this.specialPlace = res.data.data.specialization[0].name;
             this.locations.lat = res.data.data.latitude;
             this.locations.lng = res.data.data.longitude;
             this.commercialNumber = res.data.data.commercialNumber;
@@ -977,11 +993,7 @@ export default {
     //         <img src="${this.selectedCountry.image}" class="country_image">
     //         ${this.selectedCountry.code}
     //         ` ;
-    setTimeout(() => {
-      this.getSpecialists();
-    }, 2000);
-    this.getProfile();
-    this.chooseCountry();
+   
     // this.getCities();
 
     document.querySelector(".p-dropdown-label").innerHTML =
@@ -989,11 +1001,18 @@ export default {
             <img src="${this.selectedCountry.image}" class="country_image">
             ${this.selectedCountry.code}
             ` ;
+
+    this.getSpecialists();
+    this.getProfile();
+    this.chooseCountry();
   },
 };
 </script>
 
 <style>
+.p-multiselect{
+  background-color: #fff !important;
+}
 .country_code {
   position: absolute !important;
   width: 29% !important;
