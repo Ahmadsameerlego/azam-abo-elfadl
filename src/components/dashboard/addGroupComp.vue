@@ -184,7 +184,7 @@
                                 {{ $t('session.date') }}
                                 <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                             </label>
-                            <Calendar v-model="dates[index]" @select="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.datePlc')" :minDate="new Date()" />
+                            <Calendar v-model="dates[index]" @date-select="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.datePlc')" :minDate="new Date()" />
 
                             <span class="icon_date">
                                 <i class="fa-solid fa-calendar-days"></i>
@@ -203,7 +203,7 @@
                                 {{ $t('session.appoint') }}
                                 <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                             </label>
-                            <Calendar v-model="times[index]" @select="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.appPlc')" timeOnly hourFormat="12" />
+                            <Calendar v-model="times[index]" @date-select="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.appPlc')" timeOnly hourFormat="12" />
                             <span class="icon_date">
                                 <i class="fa-solid fa-clock"></i>
                             </span>
@@ -219,7 +219,18 @@
                             {{ $t('session.duration') }}
                             <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                         </label>
-                        <InputText type="number" min="1" v-model="durations[index]" @input="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.durationPlc')" />
+                        <!-- <InputText type="number" min="1" step="15" max="60" value="15" v-model="durations[index]" @input="getDocotrs(index)" class="default_input w-100" :placeholder="$t('session.durationPlc')" /> -->
+                        <input 
+                            type="number"
+                            min="15" 
+                            step="15" 
+                            max="60" 
+                            value="15"
+                            v-model="durations[index]" 
+                            @input="getDocotrs(index)"
+                            class="form-control default_input w-100" 
+                            :placeholder="$t('session.durationPlc')"
+                        >
                         <span class="error text-danger fs-13" v-if="isDurationAdded[index]">  {{ $t('session.durationPlc') }} </span>
                     </div>
                 </div>
@@ -315,7 +326,7 @@ export default {
         const descriptionsEn    = ref([]);
         const dates             = ref([]);
         const times             = ref([]);
-        const durations         = ref([]);
+        const durations         = ref([15]);
         const doctors           = ref([]);
         const selectedDoctors   = ref([]);
         const getDocotorsLoading= ref([]);

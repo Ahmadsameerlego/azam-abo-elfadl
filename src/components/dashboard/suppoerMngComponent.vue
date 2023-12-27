@@ -179,7 +179,7 @@
                   {{ $t('session.date') }}
                     <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                 </label>
-                <Calendar v-model="session.date" class="default_input w-100" :placeholder="$t('session.datePlc')" :minDate="new Date()" />
+                <Calendar v-model="session.date" @date-select="getDoctors(index)"  class="default_input w-100" :placeholder="$t('session.datePlc')" :minDate="new Date()" />
                 <span class="error text-danger fs-13" v-if="isDates[index]"> {{ $t('session.datePlc') }} </span>
 
             </div>
@@ -191,7 +191,7 @@
                     {{ $t('session.appoint') }}
                     <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                 </label>
-                <Calendar v-model="session.time" class="default_input w-100" :placeholder="$t('session.appPlc')" timeOnly hourFormat="12" />
+                <Calendar v-model="session.time" class="default_input w-100" @date-select="getDoctors(index)" :placeholder="$t('session.appPlc')" timeOnly hourFormat="12" />
                 <span class="error text-danger fs-13" v-if="isTimes[index]"> {{ $t('session.appPlc') }} </span>
 
             </div>
@@ -336,20 +336,11 @@ export default {
     }
   },
   watch:{
-    sessionDates(newDates, oldDates) {
-      // This function will be called when any session date property changes
-      console.log('New Dates:', newDates);
-      console.log('Old Dates:', oldDates);
-      console.log('Old Dates:', this.sessionDates);
 
-      // if( newDates !== oldDates ){
-          // this.getDoctors();
-      // }
-      // You can perform additional actions based on the new and old values
-    }
   
   },
   methods:{
+
     // get group details 
     async getGrouo(){
       await axios.get(`/support-groups-details-center?id=${this.$route.params.id}`, {
@@ -511,24 +502,24 @@ export default {
           }else{
             sendedTime = moment(this.sessions[i].time ).format('hh:mm A') ;
           }
-          
-          this.sendedSessions.push({
-            id : this.sessionIds[i],
-            name : {
-              ar : this.sessions[i].nameAr,
-              en : this.sessions[i].nameEn
-            },
-            description : {
-              ar : this.sessions[i].descriptionAr,
-              en : this.sessions[i].descriptionEn
-            },
-            startDate :  moment(this.sessions[i].date).format('YYYY-MM-DD'),
-            startTime :  sendedTime,
-            // startTime :  moment( new Date(`${moment(this.sessions[i].date).format('YYYY-MM-DD')} ${this.sessions[i].time}`)  ).format('hh:mm A'), //// time date for future,
-            duration  : this.sessions[i].duration,
-            doctors   : [ this.sessions[i].doctors[0].id ]
-          })
-
+          if(this.sessions[i].doctors.length > 0){
+            this.sendedSessions.push({
+              id : this.sessionIds[i],
+              name : {
+                ar : this.sessions[i].nameAr,
+                en : this.sessions[i].nameEn
+              },
+              description : {
+                ar : this.sessions[i].descriptionAr,
+                en : this.sessions[i].descriptionEn
+              },
+              startDate :  moment(this.sessions[i].date).format('YYYY-MM-DD'),
+              startTime :  sendedTime,
+              // startTime :  moment( new Date(`${moment(this.sessions[i].date).format('YYYY-MM-DD')} ${this.sessions[i].time}`)  ).format('hh:mm A'), //// time date for future,
+              duration  : this.sessions[i].duration,
+              doctors   : [ this.sessions[i].doctors[0].id ]
+            })
+          }
 
 
         }
@@ -578,8 +569,14 @@ export default {
           }
       })
       .then( (res)=>{
+        if( res.data.data.length > 0 ){
           doctors[index] = res.data.data ;
+        }else if( res.data.data.length == 0  ){
+          this.sessions[index].doctors = 0 ;
+          this.sessions[index].doctors = [];
+        }
           this.getDocotorsLoading[index] = false ;
+          console.log(doctors[index]) ;
       } )
       .catch ( (err)=>{
           console.log(err)

@@ -513,7 +513,7 @@
         <div v-if="treat.status == 'current'">
           <!-- {{session.duration}} -->
           <button
-            class="btn send_offer mx-5 mb-4 pt-2 pb-2 mt-3"
+            class="reAssignButton btn send_offer mx-5 mb-4 pt-2 pb-2 mt-3"
             v-if="
               session.reassignmentSessionButton ||
               session.addDoctorsToSession ||
@@ -534,7 +534,7 @@
               $t("treat.addDoc") 
             }}</span>
             <span v-if="session.reassignmentSessionButton"
-              >{{ $t('single.reAdd') }}</span
+              >{{ $t('single.reAdd') }}  </span
             >
             <span v-if="session.rescheduleSessionButton"
               >{{ $t('single.reSech') }}</span
@@ -1266,7 +1266,7 @@ export default {
         .closest("section")
         .querySelector(".changedspe").innerHTML = "تم رفض طلب التأجيل";
       e.currentTarget.closest(".top-minus").remove();
-
+      e.currentTarget.querySelector('.reAssignButton').remove();
       await axios
         .put("/refuse-delayed-session", fd, {
           headers: {
@@ -1280,6 +1280,9 @@ export default {
               summary: res.data.message,
               life: 3000,
             });
+
+            // this.$refs.reAssignButton.parentNode.removeChild(this.$refs.reAssignButton);
+
           } else {
             this.$toast.add({
               severity: "error",

@@ -50,7 +50,7 @@ dom.watch();
 
 // import axios
 import axios from 'axios';
-axios.defaults.baseURL = 'https://azzam.4hoste.com/api';
+axios.defaults.baseURL = 'https://azzam-sa.net/api';
 // axios.defaults.headers.common['Authorization'] = localStorage.getItem('token');   
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 axios.defaults.headers.lang = localStorage.getItem('locale');

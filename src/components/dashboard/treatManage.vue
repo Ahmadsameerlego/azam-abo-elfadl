@@ -47,7 +47,7 @@
             v-if="isShown"
         >
              
-            <template #empty> No treatments found. </template>
+            <template #empty> {{ $t('common.noTreatment') }} </template>
 
             <Column  :header="$t('common.num')" >
                 <template #body="slotProps">

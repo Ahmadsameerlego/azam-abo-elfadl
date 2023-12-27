@@ -309,18 +309,67 @@
                         </Dialog>
 
                     </div>
-                    <!-- <span class="error text-danger fs-13" v-if="isAppointGetted"> {{ $t('common.addApoint') }} </span> -->
+                    <span class="error text-danger fs-13" v-if="isAppointGetted"> {{ $t('common.addApoint') }} </span>
 
                 </div>  
-                <span class="error text-danger fs-13" v-if="isAppoint[index]"> {{ $t('common.addApoint') }} </span>
+                <!-- <span class="error text-danger fs-13" v-if="isAppoint[index - appoint_length]"> {{ $t('common.addApoint') }} </span> -->
 
 
             </div>
 
+            <!-- new Added Appointment   -->
+            <div v-for="(appointment, index) in pushed_apps" :key="index">
+                <div class="row align-items-center mt-3">
+                    <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label for="" class="d-block fw-6 mb-2">{{ $t('common.day') }}</label>
+                        <Dropdown
+                            v-model="appointment.selectedDay"
+                            :options="days"
+                            optionLabel="title"
+                            :placeholder="$t('common.chooseDay')"
+                            class="default_input w-100 w-full md:w-14rem"
+                        />
+                    </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                    <div class="form-group">
+                        <label for="" class="d-block fw-6 mb-2">{{ $t('common.from') }}</label>
+                        <Calendar
+                            :id="'from-timeonly-' + index"
+                            v-model="appointment.startTime"
+                            timeOnly
+                            class="default_input w-100 w-full md:w-14rem"
+                            :placeholder="$t('common.from')"
+                            hour-format="12"
+                        />
+                    </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                    <div class="form-group">
+                        <label for="" class="d-block fw-6 mb-2">{{ $t('common.to') }}</label>
+                        <Calendar
+                            :id="'to-timeonly-' + index"
+                            v-model="appointment.endTime"
+                            timeOnly
+                            class="default_input w-100 w-full md:w-14rem"
+                            :placeholder="$t('common.to')"
+                            hour-format="12"
+                        />
+                    </div>
+                    </div>
+                    <div class="col-md-1 mb-3">
+                        <button class="btn removeAppointment" @click.prevent="removeAppointmentView(index)">
+                            <i class="fa-solid fa-trash-can text-danger"></i>
+                        </button>
+                    </div>
+                </div>
+                <span class="error text-danger fs-13" v-if="isAppoint[index]"> {{ $t('common.addApoint') }} </span>
 
+            </div>
 
             <!-- add new date  -->
-            <div class="add_new_date d-flex main-color" @click="addAnotherAppointment">
+            <div class="add_new_date d-flex main-color" @click="addAnotherEditAppointment">
                 <span class="add_icon flex_center whiteColor">
                     <i class="fa-solid fa-plus"></i>
                 </span>
@@ -359,6 +408,7 @@ import Toast from 'primevue/toast';
 export default {
     data(){
         return{
+            pushed_apps : [],
             disabled : false ,
             disabled2 : true ,
             name : null,
@@ -584,11 +634,13 @@ export default {
         handleChange(input){
             this[input] = true ;
         },
+        removeAppointmentView(index){
+            this.pushed_apps.splice(index, 1)
+        },
         // remove appointment 
         async removeAppointment(index, day , start , end){
             if( day == null ){
                 this.deleteApp[index] = false ;
-                this.new_appointments.splice(index, 1)
             }else {
                 this.deleteDisabledButton = true ;
                 // console.log(index)
@@ -647,6 +699,18 @@ export default {
             // this.isNew[-1] = true ;
 
             // this.disabledOld[index] = true
+
+            // for (let i = 0; i < this.new_appointments.length - this.appoint_length ; i++) {
+            //     this.isAppoint[i] = true ;
+                
+            // }
+        },
+        addAnotherEditAppointment(){
+            this.pushed_apps.push({
+                selectedDay: null,
+                startTime: null,
+                endTime: null,
+            })
         },
         // format time 
         formatTimeTo12HourFormat(time) {
@@ -698,25 +762,27 @@ export default {
         // store emp for edit 
         storeForEdit(){
             // loop through appended appointments
-            if (this.new_appointments.length > 0) {
-                for (let i = 0; i < this.new_appointments.length ; i++) {
+            if (this.pushed_apps.length > 0) {
+                console.log('done');
+                for (let i = 0; i < this.pushed_apps.length ; i++) {
                     let sendedDay = null ;
                     let startTime = null ;
                     let endTime = null ;
-                    if(typeof this.new_appointments[i].day === 'object'){
+                    if( this.pushed_apps[i].selectedDay !== null){
 
-                        sendedDay = this.new_appointments[i].day.name ;
-                        startTime = this.formatTimeTo12HourFormat(this.new_appointments[i].startTime)  ;
-                        endTime = this.formatTimeTo12HourFormat(this.new_appointments[i].endTime)  ;
+                        sendedDay = this.pushed_apps[i].selectedDay.name ;
+                        startTime = this.formatTimeTo12HourFormat(this.pushed_apps[i].startTime)  ;
+                        endTime = this.formatTimeTo12HourFormat(this.pushed_apps[i].endTime)  ;
                         this.isAppoint[i] = false ;
                     } else{
                         this.isAppoint[i] = true ;
                     }
-                    // else if( !(typeof this.new_appointments[i].day === 'object')){
-                    //     sendedDay = this.new_appointments[i].day ;
-                    //     startTime = this.new_appointments[i].startTime;
-                    //     endTime = this.new_appointments[i].endTime  ;
-                    //     // console.log('No')
+
+
+                    // if( !(typeof this.new_appointments[i].day === 'object')){
+                    //     this.isAppoint[i] = false
+                    // }else{
+                    //     this.isAppoint[i] = true ;
                     // }
 
                     this.dates.push({
@@ -728,7 +794,7 @@ export default {
 
                 }
                 console.log(this.dates)
-                console.log(this.new_appointments.length)
+                console.log(this.pushed_apps)
 
             }
         },
@@ -976,10 +1042,9 @@ export default {
             this.storeForEdit() ;
             // appointment 
             // if( this.new_appointments.leng )
-            if( this.isName == false && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false && this.isEditAppFalse == false && this.isAvatar == false ){
+            if( this.isName == false && this.isEditAppFalse  && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false &&  this.isAvatar == false ){
                 this.mainEdit();
             }
-            
         },
 
         async mainEdit(){
@@ -1018,7 +1083,7 @@ export default {
             fd.append('center', JSON.parse(localStorage.getItem('user')).id);
 
             
-            fd.append( 'appointments', JSON.stringify(this.dates.splice(this.appoint_length) ) );
+            fd.append( 'appointments', JSON.stringify(this.dates) );
             // .splice(this.appoint_length)
             await axios.put('/edit-doctor', fd , {
                 headers : {

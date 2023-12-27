@@ -13,6 +13,7 @@
       "logout": "Logout"
     },
     "common": {
+      "noTreatment" : "No Treatment Plans Found.",
       "all" : "All",
       "urgent" : "uregent consultations",
       "plans" : "treatment plans",
