@@ -12,7 +12,7 @@
               <div class="contant_box_404">
                 <h3 class="h2">يبدو أن الصفحة التي تريدها غير موجودة</h3>
   
-                <router-link to="/center/home" class="link_404">العودة للرئيسية</router-link>
+                <router-link to="/home" class="link_404">العودة للرئيسية</router-link>
               </div>
             </div>
           </div>

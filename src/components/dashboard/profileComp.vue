@@ -616,7 +616,7 @@ export default {
               life: 3000,
             });
             this.disabled = false;
-            this.$router.push("/center/changePhone");
+            this.$router.push("/changePhone");
           } else {
             this.$toast.add({
               severity: "error",

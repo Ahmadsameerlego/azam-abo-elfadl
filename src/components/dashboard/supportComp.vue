@@ -17,7 +17,7 @@
             </div>
             <!-- add  -->
             <div class="add">
-                <router-link to="/center/addGroup" class="add_doctor">
+                <router-link to="/addGroup" class="add_doctor">
                     <i class="fa-solid fa-plus"></i>
                 </router-link>
             </div>
@@ -66,7 +66,7 @@
 
                    <div class="d-flex">
                         <!-- edit  -->
-                        <router-link  :to="'/center/supportManage/'+slotProps.data.id" class="show_more fw-6" @click="click(slotProps.data.id)">
+                        <router-link  :to="'/supportManage/'+slotProps.data.id" class="show_more fw-6" @click="click(slotProps.data.id)">
                                 {{ $t('session.details') }}
                         </router-link>
                    </div>

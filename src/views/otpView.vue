@@ -104,7 +104,7 @@ export default {
                     this.disabled = false ;
                     this.loader = false ;
                     setTimeout(() => {
-                        this.$router.push('/center/home')
+                        this.$router.push('/home')
                     }, 1000);
                     localStorage.setItem('user', JSON.stringify(res.data.data));
                     localStorage.setItem('token', res.data.data.token);

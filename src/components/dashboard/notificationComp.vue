@@ -31,15 +31,15 @@
             <!-- router links  -->
 
             <!-- admin  -->
-            <router-link class="router_link" to="/center/home" v-if="!not.key=='admin'"></router-link>
+            <router-link class="router_link" to="/home" v-if="!not.key=='admin'"></router-link>
             <!-- consultations  -->
-            <router-link class="router_link" :to="'/center/consult/'+not.sessionId" v-if="not.key=='urgentConsultation'"></router-link>
+            <router-link class="router_link" :to="'/consult/'+not.sessionId" v-if="not.key=='urgentConsultation'"></router-link>
             <!-- treatments  -->
-            <router-link class="router_link" :to="'/center/treat/'+not.sessionId" v-if="not.key=='treatmentPlan'"></router-link>
+            <router-link class="router_link" :to="'/treat/'+not.sessionId" v-if="not.key=='treatmentPlan'"></router-link>
             <!-- support group  -->
-            <router-link class="router_link" :to="'/center/supportManage/'+not.sessionId" v-if="not.key=='supportGroup'"></router-link>
+            <router-link class="router_link" :to="'/supportManage/'+not.sessionId" v-if="not.key=='supportGroup'"></router-link>
             <!-- messages  -->
-            <router-link class="router_link" to="'/center/contactMessages" v-if="not.key=='contact'"></router-link>
+            <router-link class="router_link" to="'/contactMessages" v-if="not.key=='contact'"></router-link>
         </div>
     </section>
     <Skeleton v-else class="px-5 mb-3 mx-auto" style="width:90%" height="10rem"></Skeleton>

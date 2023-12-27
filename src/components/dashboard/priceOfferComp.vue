@@ -699,7 +699,7 @@ export default {
                     this.$toast.add({ severity: 'success', summary: res.data.message, life: 3000 });
                     this.disabled = false ;
                     setTimeout(() => {
-                        this.$router.push('/center/treatManage');
+                        this.$router.push('/treatManage');
                     }, 1000);
                 }else{
                     this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });

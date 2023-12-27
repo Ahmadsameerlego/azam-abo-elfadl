@@ -904,7 +904,7 @@ export default {
                     this.disabled = false ;
                     this.disabled2 = false ; 
                     setTimeout(() => {
-                        this.$router.push('/center/specialistsManage')
+                        this.$router.push('/specialistsManage')
                     }, 1000);
                     
                 }else{

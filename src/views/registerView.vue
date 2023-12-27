@@ -211,7 +211,7 @@
             <div class="flex_center mt-3">
                 <p class="grayColor">
                     هل لديك حساب  ؟
-                    <router-link to="/center/login" class="third-color"> {{ $t('auth.login') }} </router-link>
+                    <router-link to="/login" class="third-color"> {{ $t('auth.login') }} </router-link>
                 </p>
             </div>
         </section>
@@ -528,7 +528,7 @@ export default {
                     if( res.data.key === 'success' ){   
                         this.$toast.add({ severity: 'success', summary: res.data.message, life: 3000 });
                         setTimeout(() => {
-                            this.$router.push('/center/login')
+                            this.$router.push('/login')
                         }, 1000);
                         this.disabled=false ;
                     }else{

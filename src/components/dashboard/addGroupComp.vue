@@ -682,7 +682,7 @@ export default {
                         this.$toast.add({ severity: 'success', summary: res.data.message, life: 3000 });
                         this.disabled = false ;
                         setTimeout(() => {
-                            this.$router.push('/center/support')
+                            this.$router.push('/support')
                         }, 1000);
                     }else{
                         this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });

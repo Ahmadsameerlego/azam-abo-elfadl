@@ -16,7 +16,7 @@
             </div>
             <!-- add  -->
             <div class="add">
-                <router-link to="/center/addSpecialist" class="add_doctor">
+                <router-link to="/addSpecialist" class="add_doctor">
                     <i class="fa-solid fa-plus"></i>
                 </router-link>
             </div>
@@ -56,7 +56,7 @@
 
                     <div class="d-flex">
                         <!-- edit  -->
-                        <router-link  :to="'/center/rates/'+slotProps.data.id" class="" >
+                        <router-link  :to="'/rates/'+slotProps.data.id" class="" >
                             {{ $t('spec.showRate') }}
                         </router-link>
                        
@@ -85,7 +85,7 @@
 
                    <div class="d-flex">
                         <!-- edit  -->
-                        <router-link  :to="'/center/editDoctor/'+slotProps.data.id" class="edit_doctor">
+                        <router-link  :to="'/editDoctor/'+slotProps.data.id" class="edit_doctor">
                                 <i class="fa-solid fa-pen-to-square" ></i>
                         </router-link>
                         <!-- notify  -->

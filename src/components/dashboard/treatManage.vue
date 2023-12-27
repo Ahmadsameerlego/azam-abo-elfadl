@@ -65,7 +65,7 @@
 
                    <div class="d-flex">
                         <!-- edit  -->
-                        <router-link  :to="'/center/treat/'+slotProps.data.id" class="show_more fw-6" @click="click(slotProps.data.id)">
+                        <router-link  :to="'/treat/'+slotProps.data.id" class="show_more fw-6" @click="click(slotProps.data.id)">
                             {{ $t('session.details') }}
                         </router-link>
                    </div>

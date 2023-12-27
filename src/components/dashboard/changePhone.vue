@@ -234,7 +234,7 @@ export default {
             });
             this.disabled = false;
             this.changePhoneModal = false;
-            this.$router.push("/center/login");
+            this.$router.push("/login");
           } else {
             this.$toast.add({
               severity: "error",

@@ -293,7 +293,7 @@
                 summary: res.data.message,
                 life: 3000,
               });
-              this.$router.push(`/center/treat/${this.$route.params.id}`);
+              this.$router.push(`/treat/${this.$route.params.id}`);
             } else {
               this.$toast.add({
                 severity: "error",

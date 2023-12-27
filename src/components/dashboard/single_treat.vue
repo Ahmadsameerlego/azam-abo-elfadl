@@ -785,13 +785,13 @@
 
   <!-- send offer  -->
   <div class="send_offer mx-5 mb-4" v-if="treat.sendOfferButton == true" >
-    <router-link :to="'/center/priceOffer/' + treat.id" @click="storePatient">
+    <router-link :to="'/priceOffer/' + treat.id" @click="storePatient">
       {{ $t("treat.sendOffer") }}
     </router-link>
   </div>
   <!-- edit offer  -->
   <div class="send_offer mx-5 mb-4" v-if="treat.status == 'cancelled'&&treat.editSendOfferButton==true">
-    <router-link :to="'/center/editPriceOffer/' + this.$route.params.id"  @click="storePatient">
+    <router-link :to="'/editPriceOffer/' + this.$route.params.id"  @click="storePatient">
       {{ $t("treat.editOffer") }}
     </router-link>
   </div>
@@ -883,13 +883,13 @@
 
     <!-- send offer  -->
     <div class="send_offer mx-5 mb-4" v-if="treat.sendOfferButton == true">
-      <router-link :to="'/center/priceOffer/' + treat.id" @click="storePatient">
+      <router-link :to="'/priceOffer/' + treat.id" @click="storePatient">
         {{ $t("treat.sendOffer") }}
       </router-link>
     </div>
     <!-- edit offer  -->
     <div class="send_offer mx-5 mb-4" v-if="treat.status == 'cancelled'">
-      <router-link :to="'/center/editPriceOffer/' + this.$route.params.id"  @click="storePatient">
+      <router-link :to="'/editPriceOffer/' + this.$route.params.id"  @click="storePatient">
         {{ $t("treat.editOffer") }}
       </router-link>
     </div>
@@ -968,7 +968,7 @@ export default {
               summary: res.data.message,
               life: 3000,
             });
-            this.$router.push(`/center/home`);
+            this.$router.push(`/home`);
           } else {
             this.$toast.add({
               severity: "error",

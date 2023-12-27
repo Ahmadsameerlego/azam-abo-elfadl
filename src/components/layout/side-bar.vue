@@ -14,7 +14,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/home" class="flex_between">
+          <router-link to="/home" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-desktop"></i>
@@ -34,7 +34,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/specialistsManage" class="flex_between" :class="{'router-link-active':$route.fullPath.includes('addSpecialist')||$route.fullPath.includes('editDoctor')||$route.fullPath.includes('center/rates')}">
+          <router-link to="/specialistsManage" class="flex_between" :class="{'router-link-active':$route.fullPath.includes('addSpecialist')||$route.fullPath.includes('editDoctor')||$route.fullPath.includes('rates')}">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-users"></i>
@@ -54,7 +54,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/directConsultaions" class="flex_between" :class="{'router-link-active' : $route.fullPath.includes('consult')}">
+          <router-link to="/directConsultaions" class="flex_between" :class="{'router-link-active' : $route.fullPath.includes('consult')}">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-wifi"></i>
@@ -74,7 +74,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/treatManage" class="flex_between" :class="{'router-link-active': $route.fullPath.includes('treat') ||$route.fullPath.includes('priceOffer')||$route.fullPath.includes('addSession')||$route.fullPath.includes('editPriceOffer') }">  
+          <router-link to="/treatManage" class="flex_between" :class="{'router-link-active': $route.fullPath.includes('treat') ||$route.fullPath.includes('priceOffer')||$route.fullPath.includes('addSession')||$route.fullPath.includes('editPriceOffer') }">  
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-desktop"></i>
@@ -94,7 +94,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/support" class="flex_between" :class="{'router-link-active': $route.fullPath.includes('addGroup')||$route.fullPath.includes('supportManage')}">
+          <router-link to="/support" class="flex_between" :class="{'router-link-active': $route.fullPath.includes('addGroup')||$route.fullPath.includes('supportManage')}">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-users"></i>
@@ -114,7 +114,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/financial" class="flex_between">
+          <router-link to="/financial" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-coins"></i>
@@ -135,7 +135,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/contactMessages" class="flex_between">
+          <router-link to="/contactMessages" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-regular fa-comments"></i>
@@ -155,7 +155,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/wallet" class="flex_between">
+          <router-link to="/wallet" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-wallet"></i>
@@ -175,7 +175,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/profile" class="flex_between">
+          <router-link to="/profile" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-regular fa-user"></i>
@@ -195,7 +195,7 @@
 
         <!-- single nav item  -->
         <li class="nav_item">
-          <router-link to="/center/contact" class="flex_between">
+          <router-link to="/contact" class="flex_between">
             <div class="d-flex align-items-center">
               <span class="icon">
                 <i class="fa-solid fa-phone-volume"></i>
@@ -278,7 +278,7 @@ export default {
           localStorage.removeItem('user');
           this.$toast.add({ severity: 'success', summary: res.data.message, life: 3000 });
           setTimeout(() => {
-            this.$router.push('/center/login')
+            this.$router.push('/login')
           }, 1000);
           this.disabled = false ;
         }else{

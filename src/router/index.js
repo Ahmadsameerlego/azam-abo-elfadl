@@ -32,7 +32,7 @@ import terms from '@/views/conditionsView.vue';
 import notFound from '@/views/notFound.vue'
 const routes = [
   {
-    path: '/center/home',
+    path: '/home',
     name: 'home',
     component: HomeView,
     meta : {
@@ -41,7 +41,7 @@ const routes = [
     }
   },
   {
-    path : '/center/specialistsManage',
+    path : '/specialistsManage',
     name :'specialistsManage',
     component : specialistsManage,
     meta : {
@@ -50,7 +50,7 @@ const routes = [
     }
   },
   {
-    path : '/center/addSpecialist',
+    path : '/addSpecialist',
     name : 'addSpecialist',
     component : addSpecialist,
     meta : {
@@ -59,7 +59,7 @@ const routes = [
     }
   },
   {
-    path : '/center/directConsultaions',
+    path : '/directConsultaions',
     name : 'directConsultaions',
     component : directConsultaions,
     meta : {
@@ -68,7 +68,7 @@ const routes = [
     }
   },
   {
-    path : '/center/treatManage',
+    path : '/treatManage',
     name : 'treatManage',
     component : treatManage,
     meta : {
@@ -77,7 +77,7 @@ const routes = [
     }
   },
   {
-    path : '/center/support',
+    path : '/support',
     name : 'support',
     component : support,
     meta : {
@@ -86,7 +86,7 @@ const routes = [
     }
   },
   {
-    path : '/center/financial',
+    path : '/financial',
     name : 'financial',
     component : financial,
     meta : {
@@ -95,17 +95,17 @@ const routes = [
     }
   },
   {
-    path : '/center/login',
+    path : '/login',
     name : 'login',
     component : login
   },
   {
-    path : '/center/register',
+    path : '/register',
     name : 'register',
     component : register
   },
   {
-    path : '/center/rates/:id',
+    path : '/rates/:id',
     name : 'rate',
     component : rates,
     meta : {
@@ -114,7 +114,7 @@ const routes = [
     }
   },
   {
-    path : '/center/consult/:id',
+    path : '/consult/:id',
     name : 'consult',
     component : consult,
     meta : {
@@ -123,12 +123,12 @@ const routes = [
     }
   },
   {
-    path : '/center/activeCode',
+    path : '/activeCode',
     name : 'activeCode',
     component : activeCode
   },
   {
-    path : '/center/treat/:id',
+    path : '/treat/:id',
     name : 'treat',
     component : treat,
     meta : {
@@ -137,7 +137,7 @@ const routes = [
     }
   },
   {
-    path : '/center/priceOffer/:id',
+    path : '/priceOffer/:id',
     name : 'priceOffer',
     component : priceOffer,
     meta : {
@@ -146,7 +146,7 @@ const routes = [
     }
   },
   {
-    path : '/center/editPriceOffer/:id',
+    path : '/editPriceOffer/:id',
     name : 'editPriceOffer',
     component : editPriceOffer,
     meta : {
@@ -161,13 +161,13 @@ const routes = [
         next(); // Allow access to the route
       } else {
         // Redirect to the login page or another public route
-        next('/center/home');
+        next('/home');
       }
     },
 
   },
   {
-    path : '/center/supportManage/:id',
+    path : '/supportManage/:id',
     name : 'supportManage',
     component : supportManage,
     meta : {
@@ -176,7 +176,7 @@ const routes = [
     }
   },
   {
-    path : '/center/contactMessages',
+    path : '/contactMessages',
     name : 'contactMessages',
     component : contactMessages,
     meta : {
@@ -185,7 +185,7 @@ const routes = [
     }
   },
   {
-    path : '/center/wallet',
+    path : '/wallet',
     name : 'wallet',
     component : wallet,
     meta : {
@@ -194,7 +194,7 @@ const routes = [
     }
   },
   {
-    path : '/center/profile',
+    path : '/profile',
     name : 'profile',
     component : profile ,
     meta : {
@@ -203,7 +203,7 @@ const routes = [
     }
   },
   {
-    path : '/center/changePhone',
+    path : '/changePhone',
     component : changePhone,
     name : 'changePhone',
     meta : {
@@ -212,7 +212,7 @@ const routes = [
     }
   },
   {
-    path : '/center/contact',
+    path : '/contact',
     name : 'contact',
     component : contact,
     meta : {
@@ -221,7 +221,7 @@ const routes = [
     }
   },
   {
-    path : '/center/editDoctor/:id',
+    path : '/editDoctor/:id',
     name : 'editDoctor',
     component : editDoctor,
     meta : {
@@ -230,7 +230,7 @@ const routes = [
     }
   },
   {
-    path : '/center/addGroup',
+    path : '/addGroup',
     name : 'addGroup',
     component :addGroup ,
     meta : {
@@ -239,7 +239,7 @@ const routes = [
     }
   },
   {
-    path : '/center/addSession/:id',
+    path : '/addSession/:id',
     name : 'addSession',
     component :addSession ,
     meta : {
@@ -248,7 +248,7 @@ const routes = [
     }
   },
   {
-    path : '/center/notification',
+    path : '/notification',
     name : 'notification',
     component : notification,
     meta : {
@@ -257,17 +257,17 @@ const routes = [
     }
   },
   {
-    path : '/center/about',
+    path : '/about',
     name : 'about',
     component : about
   },
   {
-    path : '/center/faqs',
+    path : '/faqs',
     name : 'faqs',
     component : faqs
   },
   {
-    path : '/center/terms',
+    path : '/terms',
     name : 'terms',
     component :terms
   },
