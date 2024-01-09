@@ -39,7 +39,7 @@
             <!-- support group  -->
             <router-link class="router_link" :to="'/supportManage/'+not.sessionId" v-if="not.key=='supportGroup'"></router-link>
             <!-- messages  -->
-            <router-link class="router_link" to="'/contactMessages" v-if="not.key=='contact'"></router-link>
+            <router-link class="router_link" to="/contactMessages" v-if="not.key=='contact'"></router-link>
         </div>
     </section>
     <Skeleton v-else class="px-5 mb-3 mx-auto" style="width:90%" height="10rem"></Skeleton>

@@ -13,6 +13,10 @@
       "logout": "Logout"
     },
     "common": {
+      "ibanNum" : "Iban Number Should Be More Than 24 Digits",
+      "comNum" : "Commercial Number Should Be More Than 6 Numbers",
+      "noMessages" : "No Messages Found",
+      "noSupport" : "No Support Groups Found",
       "noTreatment" : "No Treatment Plans Found.",
       "all" : "All",
       "urgent" : "uregent consultations",

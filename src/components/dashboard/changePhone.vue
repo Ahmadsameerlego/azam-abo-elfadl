@@ -8,7 +8,7 @@
     </div>
   </section>
 
-  <section id="auth" class="mx-5 pt-3 pb-3 px-3 main-bg">
+  <section id="" class="mx-5 pt-3 pb-3 px-3 main-bg">
     <section id="login" class="mx-0 px-0" style="width: 40%">
       <!-- title  -->
       <div class="">

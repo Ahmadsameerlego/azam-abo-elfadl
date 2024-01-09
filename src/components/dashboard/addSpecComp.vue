@@ -98,7 +98,7 @@
                 <div class="col-md-6 mb-3">
                     <div class="form-group">
                         <label for="" class="d-block fw-6 mb-2">
-                             {{  $t('common.conDuration')  }} 
+                             {{  $t('common.conDuration')  }} ( بالدقائق )
                              <i class="fa-solid fa-star-of-life text-danger fs-10"></i>
                         </label>
                         <input 
@@ -111,7 +111,7 @@
                             name="time" 
                             class="form-control default_input w-100" 
                             :placeholder="$t('common.durationPlace')"
-                            :disabled="$route.fullPath.includes('editDoctor')"
+                            
                             
                         >
                         <!-- <InputNumber v-model="time" name="time" inputId="integeronly" class="default_input w-100" :placeholder="$t('common.durationPlace')" /> -->
@@ -202,7 +202,7 @@
                     </div>
                     </div>
                     <div class="col-md-1 mb-3">
-                        <button class="btn removeAppointment" @click.prevent="removeAppointment(index)">
+                        <button class="btn removeAppointment" @click.prevent="removeAppointmentAdd(index)">
                             <i class="fa-solid fa-trash-can text-danger"></i>
                         </button>
                     </div>
@@ -417,7 +417,7 @@ export default {
             email : null,
             isMailChanged : false ,
             price : null,
-            time : 15,
+            time : '',
             selectedCity: null,
             selectedSpec : null,
             selectedCountry : {
@@ -633,6 +633,9 @@ export default {
         ...mapActions('setting',['getCountries']),
         handleChange(input){
             this[input] = true ;
+        },
+        removeAppointmentAdd(index){
+            this.new_appointments.splice(index, 1)
         },
         removeAppointmentView(index){
             this.pushed_apps.splice(index, 1)
@@ -869,7 +872,7 @@ export default {
             // appointment 
             // if( this.new_appointments.leng )
             this.storeAppointment();
-            if( this.isName == false && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false&& this.isAppoint == false && this.isAvatar == false ){
+            if( this.isName == false && this.isPhone == false && this.isEmail == false && this.isSpec == false && this.isPrice == false && this.isTime == false && this.isAr == false && this.isEn == false && this.isAvatar == false ){
                 this.mainAddDoctor();
             }
         },

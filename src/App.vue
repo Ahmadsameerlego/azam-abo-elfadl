@@ -8,8 +8,8 @@
 
 <script>
 import {messaging} from '@/firebase'
-  import {getToken , onMessage }  from "firebase/messaging"
-  import Toast from 'primevue/toast';
+import {getToken , onMessage }  from "firebase/messaging"
+import Toast from 'primevue/toast';
 
   export default{
     data(){

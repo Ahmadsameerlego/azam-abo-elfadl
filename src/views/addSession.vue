@@ -338,7 +338,7 @@
   .p-dropdown .p-dropdown-label.p-placeholder,
   .p-inputtext 
   {
-    font-family: "Cairo", sans-serif !important;
+    font-family: 'URWDIN', sans-serif !important;
 
   }
   /* Firefox */

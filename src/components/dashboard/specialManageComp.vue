@@ -478,5 +478,6 @@ export default {
     }
     .p-datatable .p-datatable-tbody > tr td.sessions{
         color:#40a8e0 ;
+        text-align: center !important;
     }
 </style>

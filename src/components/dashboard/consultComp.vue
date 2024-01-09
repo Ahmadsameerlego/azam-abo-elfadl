@@ -117,21 +117,21 @@
             <div class="white_bg pt-2 pb-2 px-5">
                 <div class="single_info flex_between">
                     <span class="info_key"> {{ $t('dash.value') }} </span>
-                    <span class="info_value"> {{ consult.priceText }} </span>
+                    <span class="info_value"> {{ consult.price }} رس </span>
                 </div>
             </div>
             <!-- single info -->
             <div class="gray-bg pt-2 pb-2 px-5">
                 <div class="single_info gray-bg flex_between">
                     <span class="info_key"> {{ $t('dash.tax') }} </span>
-                    <span class="info_value"> {{ consult.vatPriceText }}</span>
+                    <span class="info_value"> {{ consult.vatPrice }} رس</span>
                 </div>
             </div>
             <!-- total info -->
             <div class="white_bg pt-2 pb-2 px-5">
                 <div class="single_info flex_between">
                     <span class="main-color"> {{ $t('dash.total') }} </span>
-                    <span class="main-color fw-6"> {{ consult.totalText }}</span>
+                    <span class="main-color fw-6"> {{ consult.total }} رس</span>
                 </div>
             </div>
         </section>

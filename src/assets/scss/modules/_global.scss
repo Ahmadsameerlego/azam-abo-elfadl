@@ -1,11 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+// @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+@font-face{
+    font-family: 'URWDIN';
+    src: 
+        url('@/assets/font/URWDINArabic-Medium.woff'),
+        url('@/assets/font/URWDINArabic-Black.woff'),
+        url('@/assets/font/URWDINArabic-Light.woff'),
+}
 body{
     direction: rtl;
     text-align: right;
     color: #919191 !important;
     font-size: 14px;
     background-color: #f5f5f5 !important;
-    font-family: 'Cairo', sans-serif !important;
+    font-family: 'URWDIN', sans-serif !important;
 }
 
 a{transition: all 0.2s linear 0s;}

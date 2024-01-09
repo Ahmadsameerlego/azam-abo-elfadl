@@ -39,7 +39,7 @@
 
         >
              
-            <template #empty> No customers found. </template>
+            <template #empty> {{ $t('common.noSupport') }} </template>
 
             <Column :header="$t('common.num')" >
                 <template #body="slotProps">

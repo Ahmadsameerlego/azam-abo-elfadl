@@ -44,6 +44,10 @@
     </section>
     <Skeleton v-else style="width:90%;margin:auto" height="10rem"></Skeleton>
 
+    <section v-if="messages.length===0" class="flex_center">
+        <span class="text-danger text-center"> {{ $t('common.noMessages') }} </span>
+    </section>
+
 
     <!-- pagination  -->
     <paginate

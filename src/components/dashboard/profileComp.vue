@@ -180,7 +180,7 @@
             min="1"
           />
           <span class="error text-danger fs-14" v-if="showCom">
-              {{ $t('auth.numberPlc') }}
+              {{ $t('common.comNum') }}
           </span>
         </div>
 
@@ -228,7 +228,7 @@
           />
 
           <span class="error text-danger fs" v-if="showIban">
-              {{ $t('auth.ibanPlc') }}
+              {{ $t('common.ibanNum') }}
           </span>
         </div>
 
@@ -392,13 +392,17 @@
         </button>
       </div>
 
-      <div class="flex_center mt-3">
-        <p class="grayColor">
+      <div class="align-items-center mt-3">
+        <p class="grayColor" v-if="!isCodeSent">
           {{ $t('auth.getNoCode') }} ؟
           <span class="third-color pointer-click" @click="resendCode">
             {{ $t('auth.resend') }}
           </span>
         </p>
+
+        <div v-if="resendTime">
+            <p v-if="timer > 0" class="text-center ">متبقى <span class="third-color">{{ timer }} ثانية</span> </p>
+        </div>
       </div>
     </form>
   </Dialog>
@@ -488,7 +492,11 @@ export default {
       showBank : false,
       showName : false,
 
-      new_specs : []
+      new_specs : [],
+      timer: 60,
+      resendTime : false,
+      isCodeSent : false
+
 
     }
   },
@@ -509,6 +517,14 @@ export default {
             this.showrError = false;
         }
     },
+    commercialNumber(){
+        let commNumber = this.commercialNumber.toString();
+        if( this.commercialNumber === '' || commNumber.length < 6  ){
+            this.showCom = true ; 
+        }else if(this.commercialNumber !== '' ){
+            this.showCom = false;
+        }
+    },
     email(){
         if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
             this.showEmail = false ;
@@ -516,13 +532,7 @@ export default {
             this.showEmail = true ;
         }
     },
-    commercialNumber(){
-        if( this.commercialNumber === ''  ){
-            this.showCom = true ; 
-        }else if(this.commercialNumber !== '' ){
-            this.showCom = false;
-        }
-    },
+    
     ownerName(){
         if( this.ownerName === ''  ){
             this.showOwn = true ; 
@@ -538,7 +548,7 @@ export default {
         }
     },
     iban(){
-        if( this.iban === ''  ){
+        if( this.iban === '' || this.iban.length < 24 ){
             this.showIban = true ; 
         }else if(this.iban !== '' ){
             this.showIban = false;
@@ -553,6 +563,16 @@ export default {
     },
   },
   methods: {
+    startTimer() {
+        this.intervalId = setInterval(() => {
+            if (this.timer > 0) {
+            this.timer--;
+            } else {
+            clearInterval(this.intervalId);
+            this.isCodeSent = false
+            }
+        }, 1000);
+    },
     // send code
     async sendCode() {
       this.disabled = true;
@@ -660,6 +680,12 @@ export default {
             summary: res.data.message,
             life: 3000,
           });
+
+          this.startTimer()
+          this.timer = 60 ;
+          this.resendTime = true ;
+          this.isCodeSent = true
+
         } else {
           this.$toast.add({
             severity: "error",
@@ -717,11 +743,13 @@ export default {
                 this.showAddressError = false ;   
             }
             // commercial 
-            if( this.commercialNumber == '' ){
+            let comNumber = this.commercialNumber.toString();
+            if( this.commercialNumber === '' || comNumber.length < 6 ){
                 this.showCom = true ;
             }else{
                 this.showCom = false ;
             }
+
             if( this.ownerName == '' ){
                 this.showOwn = true ;
             }else{
@@ -732,7 +760,7 @@ export default {
             }else{
                 this.showBank = false ;
             }
-            if( this.iban == '' ){
+            if( this.iban == ''  || this.iban.length < 24){
                 this.showIban = true ;
             }else{
                 this.showIban = false ;

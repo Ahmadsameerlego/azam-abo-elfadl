@@ -54,11 +54,16 @@
             </form>
 
             <!-- register  -->
-            <div class="flex_center mt-3">
-                <p class="grayColor">
+            <div class="flex_between align-items-center mt-3">
+                <p class="grayColor" v-if="!isCodeSent">
                     {{ $t('auth.getNoCode') }}  ؟
                     <span  class="third-color" style="cursor:pointer" @click="resendCode"> {{ $t('auth.resend') }} </span>
                 </p>
+
+                <div v-if="resendTime">
+                    <p v-if="timer > 0" class="text-center ">متبقى <span class="third-color">{{ timer }} ثانية</span> </p>
+                </div>
+
             </div>
         </section>
     </section>
@@ -76,7 +81,10 @@ export default {
         return{
             code : '',
             disabled : true,
-            loader : false
+            loader : false,
+            timer: 60,
+            resendTime : false,
+            isCodeSent : false
         }
     },
     components:{
@@ -85,6 +93,16 @@ export default {
         Toast
     },
     methods:{
+        startTimer() {
+            this.intervalId = setInterval(() => {
+                if (this.timer > 0) {
+                this.timer--;
+                } else {
+                clearInterval(this.intervalId);
+                this.isCodeSent = false
+                }
+            }, 1000);
+        },
         // send code 
         async sendCode(){
             console.log(localStorage.getItem('FCMToken'))
@@ -121,29 +139,6 @@ export default {
             } )
         },
 
-        // // resend code 
-        // async resendCode(){
-        //     const fd = new FormData();
-        //     fd.append('loginKey', localStorage.getItem('loginKey'));
-        //     fd.append('countryCode', localStorage.getItem('countryCode'));
-        //     // fd.append('deviceType', 'web');
-        //     fd.append('userType', 'center');
-        //     // fd.append('deviceId', localStorage.getItem('FCMToken'));
-        //     await axios.patch('/resend-code', fd)
-        //     .then( (res)=>{
-        //         console.log('done')
-
-        //         if( res.data.key === 'success' ){
-        //             this.$toast.add({ severity: 'success', summary: res.data.message, life: 3000 });
-        //         }else{
-        //             this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });
-        //         }
-        //     } )
-        //     .catch( (err)=>{
-        //         this.$toast.add({ severity: 'error', summary: err.message, life: 3000 });
-        //         console.log(err)
-        //     } )
-        // }
 
         resendCode() {
             const fd = new FormData();
@@ -161,10 +156,16 @@ export default {
                     } else {
                     this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });
                     }
+
+
                 } catch (error) {
                     // Handle specific error scenarios if needed
                     console.error(error);
                 }
+                this.startTimer()
+                this.timer = 60 ;
+                this.resendTime = true ;
+                this.isCodeSent = true
                 })
                 .catch((err) => {
                 this.$toast.add({ severity: 'error', summary: err.message, life: 3000 });

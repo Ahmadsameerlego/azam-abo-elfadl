@@ -113,7 +113,7 @@
                     <input type="number" min="1" v-model="commercialNumber" class="default_input form-control w-100" :placeholder="$t('auth.numberPlc')">
 
                     <span class="error text-danger fs-14" v-if="showCom">
-                        {{ $t('auth.numberPlc') }}
+                        يجب أن يكون رقم الترخيص أكبر من ٦ أرقام
                     </span>
                 </div>
 
@@ -143,7 +143,7 @@
                     </label>
                     <InputText type="text" v-model="iban" name="iban" class="default_input w-100" :placeholder="$t('auth.ibanPlc')" />
                     <span class="error text-danger fs" v-if="showIban">
-                        {{ $t('auth.ibanPlc') }}
+                       يجب أن يكون رقم الأيبان اكبر من 24 رقم
                     </span>
                 </div>
 
@@ -162,8 +162,7 @@
                                 class="upload_file_input"
                                 accept="image/*"
                                 multiple
-                                name="images"
-                                
+                                name="images"      
                                 @change="uploadAdImages($event.target)"
                              >
                             <span class="icon">
@@ -337,6 +336,14 @@ export default {
                 this.showrError = false;
             }
         },
+        commercialNumber(){
+            let commNumber = this.commercialNumber.toString();
+            if( this.commercialNumber === '' || commNumber.length < 6  ){
+                this.showCom = true ; 
+            }else if(this.commercialNumber !== '' ){
+                this.showCom = false;
+            }
+        },
         email(){
             if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
                 this.showEmail = false ;
@@ -344,13 +351,7 @@ export default {
                 this.showEmail = true ;
             }
         },
-        commercialNumber(){
-            if( this.commercialNumber === ''  ){
-                this.showCom = true ; 
-            }else if(this.commercialNumber !== '' ){
-                this.showCom = false;
-            }
-        },
+       
         ownerName(){
             if( this.ownerName === ''  ){
                 this.showOwn = true ; 
@@ -366,7 +367,7 @@ export default {
             }
         },
         iban(){
-            if( this.iban === ''  ){
+            if( this.iban === '' || this.iban.length < 24 ){
                 this.showIban = true ; 
             }else if(this.iban !== '' ){
                 this.showIban = false;
@@ -463,8 +464,9 @@ export default {
             }else{
                 this.showAddressError = false ;   
             }
+            let comNumber = this.commercialNumber.toString();
             // commercial 
-            if( this.commercialNumber == '' ){
+            if( this.commercialNumber === '' || comNumber.length < 6 ){
                 this.showCom = true ;
             }else{
                 this.showCom = false ;
@@ -614,29 +616,26 @@ export default {
                 this.images.push( this.selectedImages2[i] )
                 this.imagesName.push(this.selectedImages2[i].name);
             }
-            console.log(Array.from(this.images))
-            // console.log()
-
-                 
-            
-              
             this.applyImage();
         },
         // remvoe image 
         removeImage(image, key){
             this.images.splice(key, 1);
+            this.imagesName.splice(key, 1);
+            this.$refs.image1.splice(key, 1)
             this.applyImage();
-
         },
         // apply image 
         applyImage() {
-          for (let i = 0; i < this.images.length; i++) {
-            let reader = new FileReader();
-            reader.onload = () => {
-              this.$refs.image1[i].src = reader.result;
-            };
-            reader.readAsDataURL(this.images[i]);
-          }
+            for (let i = 0; i < this.images.length; i++) {
+                const reader = new FileReader();
+                reader.onload = ((index) => {
+                return () => {
+                    this.$refs.image1[index].src = reader.result;
+                };
+                })(i);
+                reader.readAsDataURL(this.images[i]);
+            }
         },
 
         handleSpecs(){
@@ -687,7 +686,7 @@ export default {
     font-size: 12px;
 }
 .p-inputtext{
-    font-family: "Cairo", sans-serif !important;
+    font-family:  'URWDIN', sans-serif !important;
 }
 
 .vue-map{
