@@ -284,7 +284,5 @@ export default {
 </script>
 
 <style scoped>
-#auth #login {
-  /* transform: translateY(0) !important; */
-}
+
 </style>

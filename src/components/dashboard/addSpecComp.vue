@@ -111,8 +111,6 @@
                             name="time" 
                             class="form-control default_input w-100" 
                             :placeholder="$t('common.durationPlace')"
-                            
-                            
                         >
                         <!-- <InputNumber v-model="time" name="time" inputId="integeronly" class="default_input w-100" :placeholder="$t('common.durationPlace')" /> -->
 
