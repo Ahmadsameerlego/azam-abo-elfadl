@@ -83,8 +83,8 @@ export default {
             disabled : true,
             loader : false,
             timer: 60,
-            resendTime : false,
-            isCodeSent : false
+            resendTime : true,
+            isCodeSent : true
         }
     },
     components:{
@@ -140,13 +140,13 @@ export default {
         },
 
 
-        resendCode() {
+         resendCode() {
             const fd = new FormData();
             fd.append('loginKey', localStorage.getItem('loginKey'));
             fd.append('countryCode', localStorage.getItem('countryCode'));
             fd.append('userType', 'center');
 
-            axios.patch('/resend-code', fd)
+             axios.patch('/resend-code', fd)
                 .then((res) => {
                 try {
                     console.log('done');
@@ -174,6 +174,9 @@ export default {
             
         }
 
+    },
+    mounted(){
+        this.startTimer();
     },
     watch:{
         code(){

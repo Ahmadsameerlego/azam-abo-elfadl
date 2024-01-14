@@ -68,14 +68,24 @@
             <div class="gray-bg pt-2 pb-2 px-5">
                 <div class="single_info gray-bg flex_between">
                     <span class="info_key"> {{ $t('dash.gender') }} </span>
-                    <span class="info_value"> {{ consult.gender }} </span>
+                    <span class="info_value" v-if="consult.gender!==''"> {{ consult.gender }} </span>
+                    <span class="info_value" v-else> {{ $t('common.noGender') }} </span>
+                </div>
+            </div>
+            <div class="gray-bg pt-2 pb-2 px-5" v-if="consult.consultationType=='company'">
+                <div class="single_info gray-bg flex_between">
+                    <span class="info_key"> {{ $t('common.companyName') }} </span>
+                    <span class="info_value" v-if="consult.name!==''"> {{ consult.name }} </span>
+                    <span class="info_value" v-else> {{ $t('common.noCompany') }} </span>
                 </div>
             </div>
             <!-- single info -->
             <div class="white_bg pt-2 pb-2 px-5">
                 <div class="single_info flex_between">
                     <span class="info_key"> {{ $t('dash.age') }} </span>
-                    <span class="info_value"> {{ consult.age }} </span>
+
+                    <span class="info_value" v-if="consult.age!==''"> {{ consult.age }} </span>
+                    <span class="info_value" v-else> {{ $t('common.noAge') }} </span>
                 </div>
             </div>
             <!-- single info -->

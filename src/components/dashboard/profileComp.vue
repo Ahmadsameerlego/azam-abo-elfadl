@@ -119,7 +119,8 @@
             v-model="selectedSpecial" 
             display="chip"    
             :options="specials"  
-            :maxSelectedLabels="20" 
+            :maxSelectedLabels="3" 
+            :selectedItemsLabel="'{0} '+$t('common.selectedItems')"
             optionLabel="name" 
             :placeholder="$t('auth.specPlc')" 
             class="default_input w-100 w-full md:w-14rem" 
@@ -494,8 +495,8 @@ export default {
 
       new_specs : [],
       timer: 60,
-      resendTime : false,
-      isCodeSent : false
+      resendTime : true,
+      isCodeSent : true
 
 
     }
@@ -596,6 +597,7 @@ export default {
             });
             this.disabled = false;
             this.changePhoneModal = true;
+            this.startTimer();
           } else {
             this.$toast.add({
               severity: "error",
@@ -1015,6 +1017,7 @@ export default {
 
   // },
   mounted() {
+    
     this.geolocation();
     // document.querySelector(".p-dropdown-label").innerHTML =
     //       `

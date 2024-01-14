@@ -219,7 +219,7 @@
                 <!-- <InputText type="text" v-model="session.doctors[0].name" class="default_input w-100" placeholder="الرجاء ادخال الاخصائي" /> -->
                 <!-- <Dropdown v-model="session.doctors[index]" :options="session.doctors" optionLabel="name" placeholder="الرجاء تحديد الأخصائي المتاح" class="default_input w-100 w-full md:w-14rem" /> -->
                 <MultiSelect v-model="session.doctors" :options="session.doctors" optionLabel="name" :placeholder="$t('session.specPlc')"
-                              :maxSelectedLabels="3" class="w-full md:w-20rem" />
+                              :maxSelectedLabels="3" class="w-full md:w-20rem" :showToggleAll="false" />
             </div>
 
             <ProgressBar mode="indeterminate" class="mt-2" style="height: 6px" v-if="getDocotorsLoading[index]"></ProgressBar>

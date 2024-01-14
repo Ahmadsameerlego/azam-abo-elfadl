@@ -13,6 +13,11 @@
       "logout": "Logout"
     },
     "common": {
+      "companyName" : "Company Name",
+      "noCompany" :  "No Company Name",
+      "noGender" :"No Gender Selected",
+      "noAge" : "No Age Added",
+      "selectedItems" : "selected specializations" ,
       "ibanNum" : "Iban Number Should Be More Than 24 Digits",
       "comNum" : "Commercial Number Should Be More Than 6 Numbers",
       "noMessages" : "No Messages Found",

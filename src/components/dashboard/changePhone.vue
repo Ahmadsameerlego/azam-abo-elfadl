@@ -38,20 +38,17 @@
             :options="countries"
             optionLabel="name"
             class="default_input country_code w-full md:w-14rem"
+            @change="chooseCountry"
           >
-            <template #value="slotProps">
-              <div v-if="slotProps.value" class="flex-group-me">
-                <div>{{ slotProps.value.code }}</div>
-              </div>
-              <span v-else>
-                {{ slotProps.placeholder }}
-              </span>
-            </template>
-            <template #option="slotProps">
-              <div class="flex-group-me">
-                <div>{{ slotProps.option.code }}</div>
-              </div>
-            </template>
+              <template #value="slotProps">
+                <div v-if="slotProps.value" class="flex-group-me">
+                  <div>{{ slotProps }}</div>
+                </div>
+                <span v-else>
+                  {{ slotProps.placeholder }}
+                </span>
+              </template>
+              
           </Dropdown>
         </div>
 
@@ -139,9 +136,10 @@ export default {
     return {
       phone: null,
       selectedCountry: {
+        "id": "64ae5989a2f2fd0c04737761",
+        "name": "السعودية",
+        "image": "https://azzam.4hoste.com/assets/uploads/country/image941689583177874.png",
         code: "+966",
-        key: "SA",
-        // image: require("../../assets/imgs/saudi.png"),
       },
       countries: [],
       changePhoneModal: false,
@@ -153,6 +151,12 @@ export default {
     Dialog,
   },
   methods: {
+    chooseCountry(){
+        document.querySelector('.p-dropdown-label').innerHTML = `
+        <img src="${this.selectedCountry.image}" class="country_image">
+        ${this.selectedCountry.code}
+        ` ;
+    },
     // send code
     async sendCode() {
       this.disabled = true;
@@ -279,6 +283,10 @@ export default {
   },
   mounted() {
     this.getCountries();
+    document.querySelector('.p-dropdown-label').innerHTML = `
+            <img src="${this.selectedCountry.image}" class="country_image">
+            ${this.selectedCountry.code}
+            `  ;
   },
 };
 </script>

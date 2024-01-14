@@ -73,7 +73,7 @@
                             {{ $t('auth.spec') }} 
                     </label>
 
-                    <MultiSelect v-model="selectedSpec" :options="specs"  :maxSelectedLabels="3" optionLabel="name" :placeholder="$t('auth.specPlc')" class="default_input w-100 w-full md:w-14rem" @change="handleSpecs" />
+                    <MultiSelect v-model="selectedSpec" :options="specs"  :maxSelectedLabels="3"  :selectedItemsLabel="'{0} '+$t('common.selectedItems')" optionLabel="name" :placeholder="$t('auth.specPlc')" class="default_input w-100 w-full md:w-14rem" @change="handleSpecs" />
 
                     <span class="error text-danger fs-14" v-if="showSpecError">
                         يرجى اختيار التخصص

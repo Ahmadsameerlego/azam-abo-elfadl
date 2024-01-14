@@ -1103,6 +1103,10 @@ export default {
                     this.dates = [];
                     // this.new_appointments = [];
                     this.getDoctorData();
+
+                    setTimeout(() => {
+                        this.$router.push('/specialistsManage')
+                    }, 1000);
                 }else{
                     this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });
                     this.disabled = false ; 
