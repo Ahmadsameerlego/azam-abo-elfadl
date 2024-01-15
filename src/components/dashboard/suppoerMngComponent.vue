@@ -204,7 +204,7 @@
                   {{ $t('session.duration') }}
                     <i class="fa-solid fa-asterisk text-danger fs-10"></i>
                 </label>
-                <InputText type="text" min="1" v-model="session.duration" class="default_input w-100" :placeholder="$t('session.durationPlc')"  @input="getDoctors(index)" />
+                <InputText type="text" min="1" v-model="session.duration" class="default_input w-100" :placeholder="$t('session.durationPlc')"  @input="timeTyping(index)" />
                 <span class="error text-danger fs-13" v-if="isDurations[index]"> {{ $t('session.durationPlc') }} </span>
 
             </div>
@@ -554,6 +554,11 @@ export default {
         } )
     },
 
+    timeTyping(i){
+      setTimeout(() => {
+        this.getDoctors(i);
+      }, 1000);
+    },
     // get available doctoros 
     async getDoctors(index){
 
@@ -563,26 +568,28 @@ export default {
       var doctors = this.sessions[index].doctors ;
       
       this.getDocotorsLoading[index] = true ;
+
       await axios.get(`/available-doctors?date=${moment(date).format('YYYY-MM-DD')}&startTime=${moment(time).format('hh:mm A')}&duration=${duration}`, {
-          headers : {
-              Authorization : `Bearer ${localStorage.getItem('token')}` 
-          }
-      })
-      .then( (res)=>{
-        if( res.data.data.length > 0 ){
-          doctors[index] = res.data.data ;
-        }else if( res.data.data.length == 0  ){
-          this.sessions[index].doctors = 0 ;
-          this.sessions[index].doctors = [];
+        headers : {
+            Authorization : `Bearer ${localStorage.getItem('token')}` 
         }
-          this.getDocotorsLoading[index] = false ;
-          console.log(doctors[index]) ;
-      } )
-      .catch ( (err)=>{
-          console.log(err)
-          this.getDocotorsLoading[index] = false ;
-          this.$toast.add({ severity: 'error', summary: err.response.data.message, life: 3000 });
-      } )
+        })
+        .then( (res)=>{
+          if( res.data.data.length > 0 ){
+            doctors[index] = res.data.data ;
+          }else if( res.data.data.length == 0  ){
+            this.sessions[index].doctors = 0 ;
+            this.sessions[index].doctors = [];
+          }
+            this.getDocotorsLoading[index] = false ;
+            console.log(doctors[index]) ;
+        } )
+        .catch ( (err)=>{
+            console.log(err)
+            this.getDocotorsLoading[index] = false ;
+            this.$toast.add({ severity: 'error', summary: err.response.data.message, life: 3000 });
+        } )
+      
     } 
   },
   computed:{

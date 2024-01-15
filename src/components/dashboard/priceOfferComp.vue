@@ -170,11 +170,23 @@
                                 <span class="error text-danger fs-13" v-if="IsMedImage"> {{ $t('offer.imgPlc') }} </span>
                             </div>
                         </div>
-
                     </section>
 
+                     <!-- add new treat  -->
+                     <div class="add_treat">
+                        <button class="btn d-flex align-items-center main-color" @click.prevent="addNewTreat">
+                            <span class="add_icon flex_center whiteColor">
+                                <i class="fa-solid fa-plus"></i>
+                            </span>
+                            <span class="mx-2 fs-16 fw-bold main-color">{{ $t('offer.addMed') }}</span>
+                        </button>
+                    </div>
+
+
                     <!-- appended  -->
-                    <section class="row" v-for="(item, index) in items" :key="index">
+                    <section class="single_medicine position-relative row" v-for="(item, index) in items" :key="index">
+                        
+
                         <div class="col-md-6 mb-2">
                             <div class="form-group ">
                                 <label for="" class="blackColor d-block fw-6 mb-2 fs-14">
@@ -225,17 +237,13 @@
                                 </Dialog>
                             </div>
                         </div>
+
+                        <span class="mt-3 mb-3" @click.prevent="removeVirtualMedicine(index)" v-if="!$route.fullPath.includes('editPriceOffer')">
+                            <button class="btn btn-danger br-50">حذف الدواء</button>
+                        </span>
                     </section>
 
-                    <!-- add new treat  -->
-                    <div class="add_treat">
-                        <button class="btn d-flex align-items-center main-color" @click.prevent="addNewTreat">
-                            <span class="add_icon flex_center whiteColor">
-                                <i class="fa-solid fa-plus"></i>
-                            </span>
-                            <span class="mx-2 fs-16 fw-bold main-color">{{ $t('offer.addMed') }}</span>
-                        </button>
-                    </div>
+                   
                 </div>
             </form>
         </section>
@@ -481,6 +489,7 @@ export default {
    
     methods:{
         ...mapActions('setting',['getCountries']),
+        
         handleValid(){
             // if( this.selectedNum == '' || this.durationDays == '' ){
             //     this.numDisabled = true ;
@@ -539,14 +548,24 @@ export default {
         },
 
         addNewTreat(){
-            let appendedSection = this.$refs.treat_item ;
+            // let appendedSection = this.$refs.treat_item ;
+            this.items.push(1)
+            // this.items.push(index);
 
-            // let appendedArea = this.$refs.added_treats ;
+            this.namesAr.push(this.nameAr);
+            this.namesEn.push(this.nameEn);
+            this.filesName.push(this.fileName);
 
-            // console.log(appendedArea)
-            // console.log(appendedSection)
-            // appendedArea.html = appendedSection
-            this.items.push(appendedSection)
+            this.nameAr = '';
+            this.nameEn = '';
+            this.fileName = '';
+        },
+        removeVirtualMedicine(index){
+            this.items.splice(index , 1)
+            // this.nameAr = '';
+            // this.nameEn = '';
+            // this.fileName = '';
+
         },
 
 
@@ -864,7 +883,7 @@ export default {
                     this.medicines_appended = [];
                     this.appedended_deleted_images = [];
                     setTimeout(() => {
-                        this.getTreatment();
+                        this.$router.push('/treatManage')
                     }, 1000);
                 }else{
                     this.$toast.add({ severity: 'error', summary: res.data.message, life: 3000 });

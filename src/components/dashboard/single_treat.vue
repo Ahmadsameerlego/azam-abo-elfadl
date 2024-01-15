@@ -588,7 +588,7 @@
                   target="_blank"
                   class="pdf-cont mt-3 mb-3"
                 >
-                  <img :src="pdfImg" alt="" />
+                  <img :src="require('@/assets/imgs/pdf.png')" alt="" />
                 </a>
                 <div class="row-rate mb-4" v-if="doctor.rating.patient.id">
                   <div class="flex-sm-gap mb-3">
@@ -825,6 +825,7 @@
           id="calendar-12h"
           v-model="time"
           :placeholder="$t('single.timePlc')"
+          @date-select="getDoctors"
           timeOnly
         />
         <div class="abs-icon"><i class="fa-regular fa-clock"></i></div>
