@@ -523,7 +523,7 @@
               getSessionId(
                 session.id,
                 session.type,
-                session.duration,
+                session.durationAsNumber,
                 session.specialization,
                 session.doctors,
                 session.members
@@ -674,7 +674,7 @@
                           getSessionId(
                             session.id,
                             session.type,
-                            session.duration,
+                            session.durationAsNumber,
                             session.specialization,
                             session.doctors,
                             session.members
@@ -763,7 +763,7 @@
             getSessionId(
               session.id,
               session.type,
-              session.duration,
+              session.durationAsNumber,
               session.specialization,
               session.doctors,
               session.members
@@ -995,7 +995,8 @@ export default {
       specialization,
       sessionDoctors,
       sessionMembers
-    ) {
+    ) 
+    {
       this.getdoctor = true;
       this.sessionId = id;
       this.sessionType = type;
@@ -1009,6 +1010,8 @@ export default {
       this.Patients = sessionMembers;
 
       this.selectedPatient = sessionMembers;
+
+      console.log(this.duration)
     },
     // get treatment
     async getTreatment() {
