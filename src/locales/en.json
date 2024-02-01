@@ -13,6 +13,9 @@
       "logout": "Logout"
     },
     "common": {
+      "rejectCase" : "Refuse Case",
+      "sureReject" : "Are You Sure",
+
       "companyName" : "Company Name",
       "noCompany" :  "No Company Name",
       "noGender" :"No Gender Selected",

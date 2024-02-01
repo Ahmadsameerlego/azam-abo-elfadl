@@ -784,10 +784,15 @@
   </section>
 
   <!-- send offer  -->
-  <div class="send_offer mx-5 mb-4" v-if="treat.sendOfferButton == true" >
-    <router-link :to="'/priceOffer/' + treat.id" @click="storePatient">
-      {{ $t("treat.sendOffer") }}
-    </router-link>
+  <div class="d-flex">
+    <div class="send_offer mx-5 mb-4" v-if="treat.sendOfferButton == true" >
+      <router-link :to="'/priceOffer/' + treat.id" @click="storePatient">
+        {{ $t("treat.sendOffer") }}
+      </router-link>
+    </div>
+    <div class="mx-3" v-if="treat.rejectCaseButton == true">
+      <button class="btn btn-danger px-5 rejectCase" @click="rejectModal=true"> {{ $t('common.rejectCase') }} </button>
+    </div>
   </div>
   <!-- edit offer  -->
   <div class="send_offer mx-5 mb-4" v-if="treat.status == 'cancelled'&&treat.editSendOfferButton==true">
@@ -796,7 +801,20 @@
     </router-link>
   </div>
 
-  <!-- getdoctor modal  -->
+
+  <!-- rejectModal modal  -->
+  <Dialog v-model:visible="rejectModal" modal :style="{ width: '50vw' }">
+    <h4 class="text-center  fw-6"> {{ $t('common.sureReject') }}</h4>
+
+    <div class="d-flex mt-4">
+        <button class="btn btn-danger w-50" @click.prevent="rejectCaseMethod" :disabled="rejectDisabled"> رفض </button>
+        <button class="btn btn-secondary mx-2 w-50" @click="rejectModal=false"> الغاء </button>
+    </div>
+  </Dialog>
+
+
+
+
   <Dialog v-model:visible="getdoctor" modal :style="{ width: '50vw' }">
     <div class="modal-container-main">
       <h5 class="mb-4 text-center font-bold">
@@ -910,6 +928,7 @@ import moment from "moment";
 export default {
   data() {
     return {
+      rejectModal : false ,
       treat: {},
       patient: {},
       isShown: false,
@@ -940,7 +959,8 @@ export default {
       isTime : false,
       isDoctors : false,
       isPatients : false,
-      isEdited : false
+      isEdited : false,
+      rejectDisabled : false
     };
   },
   components: {
@@ -979,6 +999,45 @@ export default {
           }
         })
         .catch((err) => {
+          console.log(err);
+          this.$toast.add({
+            severity: "error",
+            summary: err.response.data.message,
+            life: 3000,
+          });
+        });
+      this.disabled = false;
+    },
+    // reject case 
+    async rejectCaseMethod(){
+      const fd = new FormData();
+      fd.append("id", this.$route.params.id);
+      this.rejectDisabled = true ;
+      await axios.delete(`reject-treatmentPlan-case?id=${this.$route.params.id}`,  {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+      })
+      .then( (res)=>{
+        if (res.data.key === "success") {
+            this.$toast.add({
+              severity: "success",
+              summary: res.data.message,
+              life: 3000,
+            });
+            this.rejectModal = false ;
+            this.$router.push('/treatManage')
+          } else {
+            this.$toast.add({
+              severity: "error",
+              summary: res.data.message,
+              life: 3000,
+            });
+          }
+
+          this.rejectDisabled = false ;
+      } )
+      .catch((err) => {
           console.log(err);
           this.$toast.add({
             severity: "error",
@@ -1325,6 +1384,14 @@ export default {
 </script>
 
 <style lang="scss">
+.rejectCase{
+  padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-radius: 19px !important;
+    /* padding-right: 49px !important; */
+    /* padding-left: 60px !important; */
+    width: 250px;
+}
 .pdf-cont {
   width: 100px;
   height: 100px;

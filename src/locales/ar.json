@@ -27,6 +27,8 @@
         "dec" : "ديسمبر"
     },
     "common" : {
+        "rejectCase" : "رفض الحالة",
+        "sureReject" : "هل انت متأكد من رفض الحالة",
         "companyName" : "اسم الشركة",
         "noCompany" :  "لا يوجد اسم شركة",
         "noGender" :"لا يوجد نوع محدد",
